@@ -150,12 +150,11 @@ treeProducer = cfg.Analyzer(
 #-------- SAMPLES AND TRIGGERS -----------
 from CMGTools.TTHAnalysis.samples.samples_13TeV_CSA14 import *
 
-# CSA13 PU20bx25 samples: DYJetsM50_PU20bx25, DYJetsM50pythia6_PU20bx25, DYJetsM50_HT200to400_PU20bx25, DYJetsM50_HT400to600_PU20bx25, DYJetsM50_HT600toInf_PU20bx25, DYJetsMuMuM50_PtZ180_PU20bx25, DYJetsMuMuM6pythia8_PU20bx25, DYJetsMuMuM15pythia8_PU20bx25, DYJetsMuMuM50pythia8_PU20bx25, DYJetsEEpythia8_PU20bx25, DYJetsMuMupythia8_PU20bx25, EWKWmin_PU20bx25, EWKWplus_PU20bx25, EWKZjj_PU20bx25, EleGun_PU20bx25, GGHTauTau_PU20bx25, GGHZZ4L_PU20bx25, GJet_PU20bx25, JPsiPt20_PU20bx25, JPsiPt7_PU20bx25, MinBias_PU20bx25, MuMinGunPt100_PU20bx25, MuMinGunPt10_PU20bx25, MuPlusGunPt100_PU20bx25, MuPlusGunPt10_PU20bx25, NeutrinoGun_PU20bx25, QCDEM_20to30_PU20bx25, QCDEM_30to80_PU20bx25, QCDEM_80to170_PU20bx25, QCDMu_20to30_PU20bx25, QCDMu_30to50_PU20bx25, QCDMu_50to80_PU20bx25, QCDMu_80to120_PU20bx25, QCDMu_pythia6_120to170_PU20bx25, QCDMu_pythia6_20to30_PU20bx25, QCDMu_pythia6_30to50_PU20bx25, QCDMu_pythia6_50to80_PU20bx25, QCDMu_pythia6_80to120_PU20bx25, T1tttt_PU20bx25, TTHBB_PU20bx25, TTHGG_PU20bx25, TTHTauTau_PU20bx25, TTHWW_PU20bx25, TTHZZ4L_PU20bx25, TTJets_PU20bx25, TTJets_PUS14, TTpythia8_PU20bx25, VBFHBB_PU20bx25, VBFHGG_PU20bx25, VBFHWWSemi_PU20bx25, VBFHWW_PU20bx25, VBFHZG_PU20bx25, VBFHZZ4L_PU20bx25, VHMuMu_PU20bx25, VHTauTau_PU20bx25, VHWWInc_PU20bx25, VHWWLep_PU20bx25, VHZZ4L_PU20bx25, WENupyhia8_PU20bx25, WJets_PU20bx25, WminTau_PU20bx25, WplusMu_PU20bx25, WplusTau_PU20bx25, ZHBBInv_PU20bx25, ZHBBLL_PU20bx25, ZHLLInv_PU20bx25
-
-
 
 # Selected samples as defined on the AlphaT twiki
 WJetsToLNu   = [ WJetsToLNu_HT100to200_PU_S14_POSTLS170, WJetsToLNu_HT200to400_PU_S14_POSTLS170, WJetsToLNu_HT400to600_PU_S14_POSTLS170, WJetsToLNu_HT600toInf_PU_S14_POSTLS170]
+#GJets        = [ GJets_HT100to200_PU_S14_POSTLS170, GJets_HT200to400_PU_S14_POSTLS170, GJets_HT400to600_PU_S14_POSTLS170, GJets_HT600toInf_PU_S14_POSTLS170 ]
+
 
 # Currently not defined in the samples file could be added from here: https://cmsweb.cern.ch/das/request?view=list&limit=100&instance=prod%2Fglobal&input=dataset%3D%2F*DYJetsToLL*13TeV*%2F*PU20bx25*%2F*AODSIM
 #DYJetsToLL  = []
@@ -175,7 +174,7 @@ TTbar        = [ TTpythia8_PU20bx25 ]
 T1tttt       = [ T1tttt_PU20bx25 ]
 
 
-selectedComponents = [ SingleMu, DoubleElectron, TTHToWW_PUS14, DYJetsM50_PU20bx25, TTJets_PUS14 ]
+selectedComponents = [ SingleMu, DoubleElectron, TTHToWW_PUS14, DYJetsM50_PU20bx25, TTJets_PUS14 , GJets_HT100to200_PU_S14_POSTLS170 ]
 selectedComponents = []
 selectedComponents.extend( WJetsToLNu )
 selectedComponents.extend( TTbar )
@@ -199,13 +198,26 @@ test = 1
 # Test a single component, using a single thread.
 #--------------------------------------------------
 if test==1:
-    comp               = TTHToWW_PUS14
+    #comp               = TTHToWW_PUS14
+    #comp 	        = T1tttt_PU20bx25
+    comp               = VBFHGG_PU20bx25
+    #comp               = GJets_HT100to200_PU_S14_POSTLS170
     #comp.files = ['/afs/cern.ch/work/p/pandolf/CMSSW_7_0_6_patch1_2/src/CMGTools/TTHAnalysis/cfg/pickevents.root']
-    comp.files         = comp.files[:2]
+    comp.files         = comp.files[:1]
     
     selectedComponents = [comp]
     comp.splitFactor   = 1
 #--------------------------------------------------
+
+# Test a single component on GJets (Photon + Jets sample)
+#--------------------------------------------------
+elif test==11:
+    comp               = GJets_HT100to200_PU_S14_POSTLS170
+    comp.files         = comp.files[:2]
+
+    selectedComponents = [comp]
+    comp.splitFactor   = 1
+#-------------------------------------------------
 
 # Test all components (1 thread per component).
 #--------------------------------------------------
@@ -214,6 +226,18 @@ elif test==2:
         comp.splitFactor = 1
         comp.files       = comp.files[:1]
 #--------------------------------------------------
+
+#--------------------------------------------------
+
+# Test on all GJets (Photon + Jets) samples
+#--------------------------------------------------
+elif test==3:
+    for comp in GJets:
+        comp.splitFactor = 1
+        comp.files       = comp.files[:1]
+#--------------------------------------------------
+
+
 
 # Run on local files
 #--------------------------------------------------
