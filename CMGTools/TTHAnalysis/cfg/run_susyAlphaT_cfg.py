@@ -174,7 +174,7 @@ TTbar        = [ TTpythia8_PU20bx25 ]
 T1tttt       = [ T1tttt_PU20bx25 ]
 
 
-selectedComponents = [ SingleMu, DoubleElectron, TTHToWW_PUS14, DYJetsM50_PU20bx25, TTJets_PUS14 , GJets_HT100to200_PU_S14_POSTLS170 ]
+selectedComponents = [ SingleMu, DoubleElectron, GluGluToHToGG_Flat20to50, TTHToWW_PUS14, DYJetsM50_PU20bx25, TTJets_PUS14, GJets_HT100to200_PU20bx25 ]
 selectedComponents = []
 selectedComponents.extend( WJetsToLNu )
 selectedComponents.extend( TTbar )
@@ -200,9 +200,9 @@ test = 1
 if test==1:
     #comp               = TTHToWW_PUS14
     #comp 	        = T1tttt_PU20bx25
-    comp               = VBFHGG_PU20bx25
-    #comp               = GJets_HT100to200_PU_S14_POSTLS170
-    #comp.files = ['/afs/cern.ch/work/p/pandolf/CMSSW_7_0_6_patch1_2/src/CMGTools/TTHAnalysis/cfg/pickevents.root']
+    #comp               = VBFHGG_PU20bx25
+    #comp               = GJets_HT100to200_PU20bx25    
+    comp.files = ['/afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/MyOutputFile.root']
     comp.files         = comp.files[:1]
     
     selectedComponents = [comp]
@@ -211,12 +211,7 @@ if test==1:
 
 # Test a single component on GJets (Photon + Jets sample)
 #--------------------------------------------------
-elif test==11:
-    comp               = GJets_HT100to200_PU_S14_POSTLS170
-    comp.files         = comp.files[:2]
 
-    selectedComponents = [comp]
-    comp.splitFactor   = 1
 #-------------------------------------------------
 
 # Test all components (1 thread per component).
@@ -232,7 +227,7 @@ elif test==2:
 # Test on all GJets (Photon + Jets) samples
 #--------------------------------------------------
 elif test==3:
-    for comp in GJets:
+    for comp in WJetsToLNu :
         comp.splitFactor = 1
         comp.files       = comp.files[:1]
 #--------------------------------------------------
