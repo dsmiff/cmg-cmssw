@@ -24,6 +24,7 @@ class treeProducerSusyAlphaT( treeProducerSusyCore ):
             NTupleVariable("mht_pt",       lambda ev : ev.mhtJet40j,    help="H_{T}^{miss} computed from only jets (with |eta|<2.5, pt > 40 GeV)"),
             NTupleVariable("mht_phi",      lambda ev : ev.mhtPhiJet40j, help="H_{T}^{miss} #phi computed from onlyy jets (with |eta|<2.5, pt > 40 GeV)"),
             ##--------------------------------------------------
+            NTupleVariable("biasedDPhi",   lambda ev : ev.biasedDPhi, help="biased delta phi"),
 
             # Physics object multplicities
             #----------------------------------------
@@ -37,7 +38,6 @@ class treeProducerSusyAlphaT( treeProducerSusyCore ):
             #----------------------------------------
             
             # NEED TO ADD:
-            # - M_{T}
             # - metcorrected for photon, muon
             # - mht/metcorrected
 
@@ -57,18 +57,13 @@ class treeProducerSusyAlphaT( treeProducerSusyCore ):
             # NTupleVariable("pt2l",          lambda ev: ev.pt2l,      help="p_{T}(ll)"),
             # NTupleVariable("m2l",           lambda ev: ev.m2l,       help="m(ll)"),
 
-            # mT_W variables
+            # control sample variables
             ##--------------------------------------------------
-            NTupleVariable("mtw", lambda ev: ev.mtw, int, help="mt(l,met)"),
-            NTupleVariable("mtwTau", lambda ev: ev.mtwTau, int, help="mt(tau,met)"),
-            NTupleVariable("IsoTrack_mtw", lambda ev: ev.mtwIsoTrack, int, help="mt(isoTrack,met)"),
-            ##--------------------------------------------------
-            #            NTupleVariable("minMWjj", lambda ev: ev.minMWjj, int, help="minMWjj"),
-            #            NTupleVariable("minMWjjPt", lambda ev: ev.minMWjjPt, int, help="minMWjjPt"),
-            #            NTupleVariable("bestMWjj", lambda ev: ev.bestMWjj, int, help="bestMWjj"),
-            #            NTupleVariable("bestMWjjPt", lambda ev: ev.bestMWjjPt, int, help="bestMWjjPt"),
-            #            NTupleVariable("bestMTopHad", lambda ev: ev.bestMTopHad, int, help="bestMTopHad"),
-            #            NTupleVariable("bestMTopHadPt", lambda ev: ev.bestMTopHadPt, int, help="bestMTopHadPt"),
+            NTupleVariable("mtw", lambda ev: ev.mtw, help="mt(l,met)"),
+            NTupleVariable("mtwTau", lambda ev: ev.mtwTau, help="mt(tau,met)"),
+            NTupleVariable("IsoTrack_mtw", lambda ev: ev.mtwIsoTrack, help="mt(isoTrack,met)"),
+            NTupleVariable("mll", lambda ev: ev.mll, help="Invariant mass of the two lead leptons"),
+
             ##--------------------------------------------------
             ]
         
@@ -76,6 +71,7 @@ class treeProducerSusyAlphaT( treeProducerSusyCore ):
             # put more here
             # "pseudoJet1"       : NTupleObject("pseudoJet1",     fourVectorType, help="pseudoJet1 for hemishphere"),
             # "pseudoJet2"       : NTupleObject("pseudoJet2",     fourVectorType, help="pseudoJet2 for hemishphere"),
+             "biasedDPhiJet"       : NTupleObject("biasedDPhiJet",     fourVectorType, help="jet closest to missing energy vector"),
             })
         self.collections.update({
             # put more here
@@ -88,6 +84,10 @@ class treeProducerSusyAlphaT( treeProducerSusyCore ):
 
             # add stuff for testing
             "selectedMuons" : NTupleCollection("muon", leptonTypeSusy, 50, help="Muons for testing"),
+
+            # dR jet lep for each lepton
+            # not putting in for now, maybe in future
+            #"minDeltaRLepJet"  : NTupleCollection("minDeltaRLepJet", double, 50, help="Min deltaR between a lepton and all the jets"),
             })
         
         ## Book the variables, but only if we're called explicitly and not through a base class

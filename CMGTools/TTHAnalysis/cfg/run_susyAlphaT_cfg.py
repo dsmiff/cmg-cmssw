@@ -6,6 +6,20 @@ from CMGTools.RootTools.RootTools import *
 from CMGTools.TTHAnalysis.analyzers.susyCore_modules_cff import *
 
 ##------------------------------------------
+## Choose the type of cut flow
+## Signal or control sample
+##------------------------------------------
+
+#cutFlow = 'Signal'
+cutFlow = 'SingleMu'
+#cutFlow = 'DoubleMu'
+#cutFlow = 'SinglePhoton'
+#cutFlow = 'SingleEle'
+#cutFlow = 'DoubleEle'
+#cutFlow = 'MultiJetEnriched'
+#cutFlow = 'Test'
+
+##------------------------------------------
 ## Redefine analyzer parameters
 ##------------------------------------------
 
@@ -35,8 +49,8 @@ ttHLepAna.ele_tightId                 = "Cuts_2012"
 
 # Photons
 #------------------------------
-ttHPhoAna.ptMin                       = 25,
-ttHPhoAna.etaMax                      = 2.5,
+ttHPhoAna.ptMin                       = 25
+ttHPhoAna.etaMax                      = 2.5
 ttHPhoAna.gammaID                     = "PhotonCutBasedIDLoose"
 
 # Taus 
@@ -62,6 +76,8 @@ ttHJetMCAna.smearJets     = False
 ##------------------------------------------
 ##  ISOLATED TRACK
 ##------------------------------------------
+
+# FIXME have to check isolation for control regions
 
 # those are the cuts for the nonEMu
 ttHIsoTrackAna = cfg.Analyzer(
@@ -89,42 +105,155 @@ ttHIsoTrackAna = cfg.Analyzer(
 ##  ALPHAT VARIABLES
 ##------------------------------------------
 
+# Make alphaT and biased delta phi
+ttHAlphaTAna = cfg.Analyzer(
+            'ttHAlphaTVarAnalyzer'
+            )
+
+# Make mtw, z mass and deltaR between leptons and jet
+ttHAlphaTControlAna = cfg.Analyzer(
+            'ttHAlphaTControlAnalyzer'
+            )
+
+#-------------------------------------------
+# CUTS AND VETOS
+#-------------------------------------------
+
+#Start with the signal region default cut flow
+
+#ESums
+ttHJetMETSkim.jetPtCuts   = [100,100] # require the lead two jets to be above 100GeV
+ttHJetMETSkim.htCut       = ('htJet50j', 200)
+ttHJetMETSkim.mhtCut      = ('mhtJet50j', 0)
+ttHJetMETSkim.nBJet       = ('CSVM', 0, "jet.pt() > 50")     # require at least 0 jets passing CSVM and pt > 50
+
+ttHLepSkim.maxLeptons     = 0
+ttHLepSkim.minLeptons     = 0
+
+#Photons
+ttHPhotonSkim = cfg.Analyzer(
+    'ttHObjectSkimmer',
+    skimmerName = 'ttHPhotonSkimmer',
+    objects = 'selectedPhotons',
+    minObjects = 0,
+    maxObjects = 0,
+    #idCut  = "object.relIso03 < 0.2" # can give a cut
+    #ptCuts = [20,10],                # can give a set of pt cuts on the objects
+    )
+
+#Muons
+ttHMuonSkim = cfg.Analyzer(
+    'ttHObjectSkimmer',
+    skimmerName = 'ttHMuonSkimmer',
+    objects = 'selectedMuons',
+    minObjects = 0,
+    maxObjects = 0,
+    #idCut  = "object.relIso03 < 0.2" # can give a cut
+    #ptCuts = [20,10],                # can give a set of pt cuts on the objects
+    )
+
+#Electrons
+ttHElectronSkim = cfg.Analyzer(
+    'ttHObjectSkimmer',
+    skimmerName = 'ttHElectronSkimmer',
+    objects = 'selectedElectrons',
+    minObjects = 0,
+    maxObjects = 0,
+    #idCut  = "object.relIso03 < 0.2" # can give a cut
+    #ptCuts = [20,10],                # can give a set of pt cuts on the objects
+    )
+
+#Isolated tracks
+ttHIsoTrackSkim = cfg.Analyzer(
+    'ttHObjectSkimmer',
+    skimmerName = 'ttHIsoTrackSkimmer',
+    objects = 'selectedIsoTrack',
+    minObjects = 0,
+    maxObjects = 0,
+    #idCut  = "object.relIso03 < 0.2" # can give a cut
+    #ptCuts = [20,10],                # can give a set of pt cuts on the objects
+    )
+
+#AlphaT Specific cuts
+
 ttHAlphaTSkim = cfg.Analyzer(
             'ttHAlphaTSkimmer',
             forwardJetVeto = True,
             alphaTCuts = [(0.65, 200, 275),   #AlphaT cut in HT region
                           (0.60, 275, 325),   #(aT, HTlow, HThigh)
                           (0.55, 325, 99999)],#Any region not specified will be vetoed
+            invertAlphaT = False, #Invert the alphaT requirement
+            mhtDivMetCut = ('mhtJet50j','met',1.25), #MHT/MET cut
             )
 
-##------------------------------------------
-##  mT_W VARIABLE
-##------------------------------------------
-
-# Currently produced in alphaT analyzer
-# Modularize in future? 
-
-
-#-------------------------------------------
-# CUTS AND VETOS
-#-------------------------------------------
-# NOTE: Currently energy sums are calculated with 40 GeV jets (ttHCoreEventAnalyzer.py)
-#       However, the input collection is cleanjets which have a 50 GeV cut so this is a labeling problem
-
-#ESums
-ttHJetMETSkim.jetPtCuts   = [100,100] # require the lead two jets to be above 100GeV
-ttHJetMETSkim.htCut       = ('htJet40j', 200)
-ttHJetMETSkim.mhtCut      = ('mhtJet40j', 0)
-ttHJetMETSkim.nBJet       = ('CSVM', 0, "jet.pt() > 50")     # require at least 0 jets passing CSVM and pt > 50
-
-#Leptons (currently allowing none)
-ttHLepSkim.maxLeptons     = 0
-ttHLepSkim.minLeptons     = 0
-
-#AlphaT Specific cuts
-ttHAlphaTAna = cfg.Analyzer(
-            'ttHAlphaTVarAnalyzer'
+ttHAlphaTControlSkim = cfg.Analyzer(
+            'ttHAlphaTControlSkimmer',
+            mtwCut = (-99999,99999),
+            mllCut = (-99999,99999),
+            lepDeltaRCut = 0,
+            photonDeltaRCut = 0,
             )
+
+
+# (FIXME Instead of everything here, have an alphaT core file (like susyCore) which
+# does the default selection and cutflow. Then have the rest of this file below)
+
+# Modify the cuts for the control regions
+if cutFlow=='SingleMu':
+    ttHLepAna.loose_muon_pt   = 30.
+    ttHLepAna.loose_muon_eta  = 2.1
+    ttHLepSkim.maxLeptons     = 1
+    ttHLepSkim.minLeptons     = 1
+    ttHMuonSkim.minObjects  = 1
+    ttHMuonSkim.maxObjects  = 1
+    ttHIsoTrackSkim.minObjects  = 0 # FIXME Muons count as isolated tracks
+    ttHIsoTrackSkim.maxObjects  = 1 #
+    ttHAlphaTSkim.alphaTCuts = [(0.0, 200,99999 )]   #Turn off AlphaT cut 
+    ttHAlphaTControlSkim.mtwCut = (30,125)
+    ttHAlphaTControlSkim.lepDeltaRCut = 0.5
+
+elif cutFlow=='DoubleMu':
+    ttHLepAna.loose_muon_pt   = 30.
+    ttHLepAna.loose_muon_eta  = 2.1
+    ttHLepSkim.maxLeptons     = 2
+    ttHLepSkim.minLeptons     = 2
+    ttHMuonSkim.minObjects  = 2
+    ttHMuonSkim.maxObjects  = 2
+    ttHIsoTrackSkim.minObjects  = 0
+    ttHIsoTrackSkim.maxObjects  = 2
+    ttHAlphaTSkim.alphaTCuts = [(0.0, 200,99999 )]   #Turn off AlphaT cut
+    ttHAlphaTControlSkim.mllCut = (66.2,116.2)
+    ttHAlphaTControlSkim.lepDeltaRCut = 0.5
+
+elif cutFlow=='SinglePhoton':
+    ttHPhotonSkim.minObjects  = 1
+    ttHPhotonSkim.maxObjects  = 9999
+    ttHPhotonSkim.idCut = "abs(object.eta()) < 1.45" #uses the object skimmer
+    ttHPhotonSkim.ptCuts = [165]
+    ttHAlphaTControlSkim.photonDeltaRCut = 0.5
+
+elif cutFlow=='SingleEle':
+    ttHLepSkim.maxLeptons     = 1
+    ttHLepSkim.minLeptons     = 1
+    ttHElectronSkim.minObjects  = 1
+    ttHElectronSkim.maxObjects  = 1
+
+elif cutFlow=='DoubleEle':
+    ttHLepSkim.maxLeptons     = 2
+    ttHLepSkim.minLeptons     = 2
+    ttHElectronSkim.minObjects  = 2
+    ttHElectronSkim.maxObjects  = 2
+
+elif cutFlow=='MultiJetEnriched':
+    ttHAlphaTSkim.invertAlphaT = True
+
+elif cutFlow=='Test':
+    ttHLepSkim.maxLeptons     = 99
+    ttHLepSkim.minLeptons     = 0
+    ttHAlphaTSkim.invertAlphaT = True
+    ttHPhotonSkim.minPhotons  = 0
+    ttHPhotonSkim.maxPhotons  = 9999
+    ttHPhotonSkim.ptCuts = [25]
 
 ##------------------------------------------
 ##  PRODUCER
@@ -185,9 +314,15 @@ selectedComponents.extend( TTbar )
 #-------- SEQUENCE
 
 sequence = cfg.Sequence(susyCoreSequence + [
+                        ttHPhotonSkim,
+                        ttHMuonSkim,
+                        ttHElectronSkim,
                         ttHIsoTrackAna,
+                        ttHIsoTrackSkim,
                         ttHAlphaTAna,
+                        ttHAlphaTControlAna,
                         ttHAlphaTSkim,
+                        ttHAlphaTControlSkim,
                         treeProducer,
                         ])
 
@@ -198,12 +333,22 @@ test = 1
 # Test a single component, using a single thread.
 #--------------------------------------------------
 if test==1:
+<<<<<<< HEAD
     #comp               = TTHToWW_PUS14
     #comp 	        = T1tttt_PU20bx25
     #comp               = VBFHGG_PU20bx25
     #comp               = GJets_HT100to200_PU20bx25    
     comp.files = ['/afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/MyOutputFile.root']
     comp.files         = comp.files[:1]
+=======
+    comp               = T1tttt_PU20bx25
+    if cutFlow == 'Test':
+        comp = VBFHGG_PU20bx25 
+    if cutFlow == 'SinglePhoton':
+        comp = VBFHGG_PU20bx25 
+    #comp.files = ['/afs/cern.ch/work/p/pandolf/CMSSW_7_0_6_patch1_2/src/CMGTools/TTHAnalysis/cfg/pickevents.root']
+    comp.files         = comp.files[:2]
+>>>>>>> ac97d6ca66b18f66e17b60143ea13a0b0efa07b6
     
     selectedComponents = [comp]
     comp.splitFactor   = 1
@@ -238,10 +383,11 @@ elif test==3:
 #--------------------------------------------------
 elif test==4:
     comp = TTJets_PU20bx25
+
 #    comp.name = 'TTJets'
     #    comp.files = [ '/store/mc/Spring14miniaod/TT_Tune4C_13TeV-pythia8-tauola/MINIAODSIM/PU20bx25_POSTLS170_V5-v1/00000/063013AD-9907-E411-8135-0026189438BD.root' ]
 
-    comp.files = [ '/afs/cern.ch/user/m/mbaber/WORK/private/CSA14Samples/TT_Tune4C_13TeV-pythia8_PU20bx25.root' ]
+    comp.files = [ '/afs/cern.ch/user/m/mbaber/WORK/public/CSA14Samples/TT_Tune4C_13TeV-pythia8_PU20bx25.root' ]
 
     selectedComponents = [comp]
     comp.splitFactor = 1

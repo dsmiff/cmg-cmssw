@@ -5,6 +5,7 @@ from math import *
 
 #from ROOT import TLorentzVector, TVectorD
 
+from CMGTools.RootTools.utils.DeltaR import deltaR, deltaPhi
 from CMGTools.RootTools.fwlite.Analyzer import Analyzer
 from CMGTools.RootTools.fwlite.Event import Event
 from CMGTools.RootTools.statistics.Counter import Counter, Counters
@@ -16,17 +17,13 @@ from CMGTools.RootTools.fwlite.AutoHandle import AutoHandle
 # from CMGTools.RootTools.physicsobjects.Tau import Tau
 from CMGTools.RootTools.physicsobjects.Jet import Jet
 
-from CMGTools.RootTools.utils.DeltaR import * 
+#from CMGTools.RootTools.utils.DeltaR import * 
 
 import ROOT
 from ROOT import AlphaT
 
 
 import os
-
-# Function to calculate the transverse mass
-def mtw(x1,x2):
-    return sqrt(2*x1.pt()*x2.pt()*(1-cos(x1.phi()-x2.phi())))
 
 class ttHAlphaTVarAnalyzer( Analyzer ):
     def __init__(self, cfg_ana, cfg_comp, looperName ):
@@ -66,37 +63,35 @@ class ttHAlphaTVarAnalyzer( Analyzer ):
 
         return
 
-    # Calculate MT_W (stolen from the MT2 code)
-    # Modularize this later?
-    def makeMT(self, event):
-    # print '==> INSIDE THE PRINT MT'
-    # print 'MET=',event.met.pt() 
+    def makeBiasedDPhi(self, event):
 
-        if len(event.selectedLeptons)>0:
-            for lepton in event.selectedLeptons:
-                event.mtw = mtw(lepton, event.met)
+        if len(event.cleanJets) == 0:
+            event.biasedDPhi = 0
+            return 
+	mhtPx = event.mhtJet50jvec.px()
+	mhtPy = event.mhtJet50jvec.py()
 
-        if len(event.selectedTaus)>0:
-            for myTau in event.selectedTaus:
-                event.mtwTau = mtw(myTau, event.met)
-                foundTau = True
-                
-        if len(event.selectedIsoTrack)>0:
-            for myTrack in event.selectedIsoTrack:
-                event.mtwIsoTrack = mtw(myTrack, event.met)
+	biasedDPhi = 10;
+        for jet in event.cleanJets:
+	    newPhi = atan2(mhtPy+jet.py(),mhtPx+jet.px())
+	    biasedDPhiTemp = abs(deltaPhi(newPhi,jet.phi()))
+	    if biasedDPhiTemp < biasedDPhi:
+		biasedDPhi = biasedDPhiTemp
+		biasedDPhiJet = jet
+            pass
+
+        event.biasedDPhi = biasedDPhi
+        event.biasedDPhiJet = biasedDPhiJet
 
         return
-
 
     def process(self, iEvent, event):
         self.readCollections( iEvent )
 
         event.alphaT = -999
         self.makeAlphaT(event)
-
-        event.mtw = -999
-        event.mtwTau = -999
-        event.mtwIsoTrack = -999
-        self.makeMT(event)
+	event.biasedDPhi = -999
+	#event.biasDPhiJet = -999
+	self.makeBiasedDPhi(event)
 
         return True
