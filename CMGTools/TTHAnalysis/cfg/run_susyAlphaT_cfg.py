@@ -10,14 +10,8 @@ from CMGTools.TTHAnalysis.analyzers.susyCore_modules_cff import *
 ## Signal or control sample
 ##------------------------------------------
 
-#cutFlow = 'Signal'
-cutFlow = 'SingleMu'
-#cutFlow = 'DoubleMu'
-#cutFlow = 'SinglePhoton'
-#cutFlow = 'SingleEle'
-#cutFlow = 'DoubleEle'
-#cutFlow = 'MultiJetEnriched'
-#cutFlow = 'Test'
+
+cutFlow = ['Signal', 'SingleMu', 'DoubleMu', 'SinglePhoton', 'SingleEle', 'DoubleEle', 'MultiJetEnriched', 'Test'][3]
 
 ##------------------------------------------
 ## Redefine analyzer parameters
@@ -294,16 +288,11 @@ WJetsToLNu   = [ WJetsToLNu_HT100to200_PU_S14_POSTLS170, WJetsToLNu_HT200to400_P
 
 # NOT INCLUDING: /TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/Spring14miniaod-PU20bx25_POSTLS170_V5-v2/MINIAODSIM
 TTbar        = [ TTpythia8_PU20bx25 ]
-# https://cmsweb.cern.ch/das/request?view=list&limit=100&instance=prod%2Fglobal&input=dataset%3D%2FTToBLNu*13TeV*%2FSpring*PU20bx25*%2F*AODSIM
-#TToBLNu     = []
-# https://cmsweb.cern.ch/das/request?view=list&limit=100&instance=prod%2Fglobal&input=dataset%3D%2FSMS-T1qqqq*13TeV*%2FSpring*PU20bx25*%2F*AODSIM
-#T1qqqq       = []
-# https://cmsweb.cern.ch/das/request?view=list&limit=100&instance=prod%2Fglobal&input=dataset%3D%2FSMS-T1bbbb*13TeV*%2FSpring*PU20bx25*%2F*AODSIM
-#T1bbbb       = []
 T1tttt       = [ T1tttt_PU20bx25 ]
 
 
-selectedComponents = [ SingleMu, DoubleElectron, GluGluToHToGG_Flat20to50, TTHToWW_PUS14, DYJetsM50_PU20bx25, TTJets_PUS14, GJets_HT100to200_PU20bx25 ]
+# SingleMu, DoubleElectron are Data
+selectedComponents = [ SingleMu, DoubleElectron, GluGluToHToGG_Flat20to50, TTHToWW_PUS14, DYJetsM50_PU20bx25, TTJets_PUS14 ]
 selectedComponents = []
 selectedComponents.extend( WJetsToLNu )
 selectedComponents.extend( TTbar )
@@ -333,22 +322,20 @@ test = 1
 # Test a single component, using a single thread.
 #--------------------------------------------------
 if test==1:
-<<<<<<< HEAD
+
     #comp               = TTHToWW_PUS14
-    #comp 	        = T1tttt_PU20bx25
+    comp 	        = T1tttt_PU20bx25
     #comp               = VBFHGG_PU20bx25
     #comp               = GJets_HT100to200_PU20bx25    
-    comp.files = ['/afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/MyOutputFile.root']
-    comp.files         = comp.files[:1]
-=======
-    comp               = T1tttt_PU20bx25
+
+
     if cutFlow == 'Test':
         comp = VBFHGG_PU20bx25 
     if cutFlow == 'SinglePhoton':
         comp = VBFHGG_PU20bx25 
     #comp.files = ['/afs/cern.ch/work/p/pandolf/CMSSW_7_0_6_patch1_2/src/CMGTools/TTHAnalysis/cfg/pickevents.root']
     comp.files         = comp.files[:2]
->>>>>>> ac97d6ca66b18f66e17b60143ea13a0b0efa07b6
+
     
     selectedComponents = [comp]
     comp.splitFactor   = 1
