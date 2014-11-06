@@ -213,4 +213,4 @@ config = cfg.Config( components = selectedComponents,
                      sequence = sequence )
 
 printComps(config.components, True)
-        
+
