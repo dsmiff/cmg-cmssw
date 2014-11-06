@@ -60,8 +60,6 @@ ttHJetMCAna.smearJets     = False
 ##  ISOLATED TRACK
 ##------------------------------------------
 
-# FIXME have to check isolation for control regions
-
 # those are the cuts for the nonEMu
 ttHIsoTrackAna = cfg.Analyzer(
             'ttHIsoTrackAnalyzer',

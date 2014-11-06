@@ -51,8 +51,8 @@ class ttHAlphaTVarAnalyzer( Analyzer ):
         px  = ROOT.std.vector('double')()
         py  = ROOT.std.vector('double')()
         et  = ROOT.std.vector('double')()
-
-        for jet in event.cleanJets:
+#Make alphaT from lead 10 jets
+	for jet in event.cleanJets[:10]:
             px.push_back(jet.px())
             py.push_back(jet.py())
             et.push_back(jet.et())
