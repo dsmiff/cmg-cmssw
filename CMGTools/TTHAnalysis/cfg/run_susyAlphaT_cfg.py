@@ -11,9 +11,19 @@ from CMGTools.TTHAnalysis.analyzers.susyAlphaTCore_cfg import *
 ##------------------------------------------
 
 
+
 cutFlow = ['Signal', 'SingleMu', 'DoubleMu', 'SinglePhoton', 'SingleEle', 'DoubleEle', 'MultiJetEnriched', 'Test'][3]
 
-# Modify the cuts for the control regions
+cutFlow = 'Signal'
+#cutFlow = 'SingleMu'
+#cutFlow = 'DoubleMu'
+#cutFlow = 'SinglePhoton'
+#cutFlow = 'SingleEle'
+#cutFlow = 'DoubleEle'
+#cutFlow = 'MultiJetEnriched'
+# cutFlow = 'Test'
+
+
 if cutFlow=='SingleMu':
     ttHLepAna.loose_muon_pt   = 30.
     ttHLepAna.loose_muon_eta  = 2.1
@@ -125,6 +135,7 @@ sequence = cfg.Sequence(susyCoreSequence + [
                         ttHElectronSkim,
                         ttHIsoTrackAna,
                         ttHIsoTrackSkim,
+                        ttHAlphaTMetNoMu,
                         ttHAlphaTAna,
                         ttHAlphaTControlAna,
                         ttHAlphaTSkim,
@@ -134,7 +145,7 @@ sequence = cfg.Sequence(susyCoreSequence + [
 
 
 #-------- HOW TO RUN
-test = 1
+test = 4
 
 # Test a single component, using a single thread.
 #--------------------------------------------------
