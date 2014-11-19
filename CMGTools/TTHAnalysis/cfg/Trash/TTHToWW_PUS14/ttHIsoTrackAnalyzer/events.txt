@@ -1,0 +1,5 @@
+Counter events :
+	 all events                                     210 	 1.00 	 1.0000
+	 has >=1 selected Track                         210 	 1.00 	 1.0000
+	 has >=1 selected Iso Track                     101 	 0.48 	 0.4810
+

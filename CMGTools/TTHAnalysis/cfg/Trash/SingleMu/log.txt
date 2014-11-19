@@ -1,0 +1,33 @@
+starting loop at event 0 to process 10 events.
+DataComponent: SingleMu
+	dataset_entries:   0
+	files          :   ['/afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/MyOutputFile.root']
+	intLumi        :   1
+	isData         :   True
+	isEmbed        :   False
+	isMC           :   False
+	json           :   /afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/data/json/Cert_Run2012ABCD_22Jan2013ReReco.json
+	splitFactor    :   1
+	triggers       :   []
+beginLoop skimAnalyzerCount
+beginLoop JSONAnalyzer
+beginLoop triggerBitFilter
+beginLoop PileUpAnalyzer
+beginLoop ttHGenLevelAnalyzer
+beginLoop susyParameterScanAnalyzer
+beginLoop susyGenStatusThree
+beginLoop VertexAnalyzer
+beginLoop ttHLepAnalyzerSusy
+beginLoop ttHLepSkimmer
+beginLoop ttHLepMCMatchAnalyzer
+beginLoop ttHPhotonAnalyzerSusy
+beginLoop ttHTauAnalyzer
+beginLoop ttHTauMCMatchAnalyzer
+beginLoop ttHJetAnalyzer
+beginLoop ttHJetMCMatchAnalyzer
+beginLoop ttHCoreEventAnalyzer
+beginLoop ttHJetMETSkimmer
+beginLoop ttHIsoTrackAnalyzer
+beginLoop ttHAlphaTVarAnalyzer
+beginLoop ttHAlphaTSkimmer
+beginLoop treeProducerSusyAlphaT

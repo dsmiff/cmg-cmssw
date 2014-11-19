@@ -1,0 +1,7 @@
+Counter events :
+	 all events                                       6 	 1.00 	 1.0000
+	 pass alphaTCuts                                  0 	 0.00 	 0.0000
+	 pass forwardJetVeto                              4 	 -1.00 	 0.6667
+	 pass MHT/MET cut                                 2 	 0.50 	 0.3333
+	 accepted events                                  0 	 0.00 	 0.0000
+

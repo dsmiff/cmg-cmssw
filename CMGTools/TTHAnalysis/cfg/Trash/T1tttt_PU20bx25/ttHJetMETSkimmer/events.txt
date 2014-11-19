@@ -1,0 +1,10 @@
+Counter events :
+	 all events                                     575 	 1.00 	 1.0000
+	 pass jetPtCuts                                 422 	 0.73 	 0.7339
+	 pass jetVeto                                   422 	 1.00 	 0.7339
+	 pass met                                       422 	 1.00 	 0.7339
+	 pass HT                                        422 	 1.00 	 0.7339
+	 pass MHT                                       422 	 1.00 	 0.7339
+	 pass nBJet                                     422 	 1.00 	 0.7339
+	 accepted events                                422 	 1.00 	 0.7339
+

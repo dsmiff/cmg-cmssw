@@ -1,0 +1,343 @@
+starting loop at event 0 to process 1000 events.
+MCComponent: TTHToWW_PUS14
+	addWeight      :   1.0
+	dataset        :   /TTbarH_HToWWTo2LAndTauNu_M-125_13TeV_pythia6/Spring14dr-PU_S14_POSTLS170_V6-v1/AODSIM
+	dataset_entries:   0
+	effCorrFactor  :   1
+	efficiency     :   CFG: eff
+	eleFile        :   data/eff_ele12.root
+	eleHisto       :   h_electronScaleFactor_RecoIdIsoSip
+	muonFile       :   data/eff_mu12.root
+	muonHisto      :   TH2D_ALL_2012
+	files          :   ['root://eoscms.cern.ch//eos/cms/store/cmst3/user/gpetrucc/miniAOD/v1/TTbarH_HToWWTo2LAndTauNu_M-125_13TeV_pythia6_PU_S14_PAT.root']
+	intLumi        :   1.0
+	isData         :   False
+	isEmbed        :   False
+	isMC           :   True
+	nGenEvents     :   1
+	puFileData     :   /afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/data/puProfile_Data12.root
+	puFileMC       :   /afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/data/puProfile_Summer12_53X.root
+	splitFactor    :   1
+	triggers       :   []
+	xSection       :   1
+beginLoop skimAnalyzerCount
+beginLoop JSONAnalyzer
+beginLoop triggerBitFilter
+beginLoop PileUpAnalyzer
+beginLoop ttHGenLevelAnalyzer
+beginLoop susyParameterScanAnalyzer
+beginLoop susyGenStatusThree
+beginLoop VertexAnalyzer
+beginLoop ttHLepAnalyzerSusy
+beginLoop ttHLepSkimmer
+beginLoop ttHLepMCMatchAnalyzer
+beginLoop ttHPhotonAnalyzerSusy
+beginLoop ttHTauAnalyzer
+beginLoop ttHTauMCMatchAnalyzer
+beginLoop ttHJetAnalyzer
+beginLoop ttHJetMCMatchAnalyzer
+beginLoop ttHCoreEventAnalyzer
+beginLoop ttHJetMETSkimmer
+beginLoop ttHIsoTrackAnalyzer
+beginLoop ttHAlphaTVarAnalyzer
+beginLoop ttHAlphaTSkimmer
+beginLoop treeProducerSusyAlphaT
+
+Analyzer: skimAnalyzerCount
+	verbose        :   False
+Counter SkimReport :
+	 All Events                                    1000 	 1.00 	 1.0000
+	 Sum Weights                                 1000.0 	 1.00 	 1.0000
+
+
+
+
+Analyzer: JSONAnalyzer
+	verbose        :   False
+Counter JSON :
+	 All Lumis                                        0 	 -1.00 	 -1.0000
+	 Passed Lumis                                     0 	 -1.00 	 -1.0000
+
+
+
+
+Analyzer: triggerBitFilter
+	verbose        :   False
+
+
+
+
+Analyzer: PileUpAnalyzer
+	makeHists      :   False
+	true           :   True
+	verbose        :   False
+
+Average vertexWeight   :   0.2131 +-   0.0122
+
+
+Analyzer: ttHGenLevelAnalyzer
+	PDFWeights     :   []
+	filterHiggsDecays:   False
+	verbose        :   False
+
+
+
+
+Analyzer: susyParameterScanAnalyzer
+	verbose        :   False
+
+
+
+
+Analyzer: susyGenStatusThree
+	verbose        :   False
+
+
+
+
+Analyzer: VertexAnalyzer
+	fixedWeight    :   1
+	verbose        :   False
+	vertexWeight   :   None
+Counter GoodVertex :
+	 All Events                                    1000 	 1.00 	 1.0000
+	 Events With Good Vertex                       1000 	 1.00 	 1.0000
+
+Average vertexWeight   :   1.0000 +-   0.0000
+
+
+Analyzer: ttHLepAnalyzerSusy
+	doElectronScaleCorrections:   False
+	doMuScleFitCorrections:   False
+	doRochesterCorrections:   False
+	doSegmentBasedMuonCleaning:   False
+	ele_isoCorr    :   rhoArea
+	ele_tightId    :   Cuts_2012
+	electrons      :   slimmedElectrons
+	inclusive_electron_dxy:   0.5
+	inclusive_electron_dz:   1.0
+	inclusive_electron_eta:   2.5
+	inclusive_electron_id:   
+	inclusive_electron_lostHits:   1.0
+	inclusive_electron_pt:   5
+	inclusive_muon_dxy:   0.5
+	inclusive_muon_dz:   1.0
+	inclusive_muon_eta:   2.4
+	inclusive_muon_id:   POG_ID_Loose
+	inclusive_muon_pt:   3
+	loose_electron_dxy:   0.02
+	loose_electron_dz:   0.2
+	loose_electron_eta:   2.5
+	loose_electron_id:   POG_Cuts_ID_2012_Loose
+	loose_electron_lostHits:   1
+	loose_electron_pt:   10
+	loose_electron_relIso:   0.15
+	loose_muon_dxy :   0.2
+	loose_muon_dz  :   0.5
+	loose_muon_eta :   2.5
+	loose_muon_id  :   POG_ID_Tight
+	loose_muon_pt  :   10.0
+	loose_muon_relIso:   0.12
+	min_dr_electron_muon:   0.02
+	muons          :   slimmedMuons
+	rhoElectron    :   fixedGridRhoFastjetAll
+	rhoMuon        :   fixedGridRhoFastjetAll
+	verbose        :   False
+Counter events :
+	 all events                                    1000 	 1.00 	 1.0000
+
+
+
+
+Analyzer: ttHLepSkimmer
+	maxLeptons     :   0
+	minLeptons     :   0
+	verbose        :   False
+Counter events :
+	 all events                                    1000 	 1.00 	 1.0000
+	 vetoed events                                  569 	 0.57 	 0.5690
+	 accepted events                                431 	 0.76 	 0.4310
+
+
+
+
+Analyzer: ttHLepMCMatchAnalyzer
+	matchAllInclusiveLeptons:   False
+	verbose        :   False
+
+
+
+
+Analyzer: ttHPhotonAnalyzerSusy
+	etaMax         :   (2.5,)
+	gammaID        :   PhotonCutBasedIDLoose
+	photons        :   slimmedPhotons
+	ptMin          :   (25,)
+	verbose        :   False
+Counter events :
+	 all events                                     431 	 1.00 	 1.0000
+	 has >=1 gamma at preselection                    0 	 0.00 	 0.0000
+	 has >=1 selected gamma                           0 	 -1.00 	 0.0000
+
+
+
+
+Analyzer: ttHTauAnalyzer
+	dxyMax         :   99999.0
+	dzMax          :   99999.0
+	etaMax         :   2.3
+	leptonVetoDR   :   0.4
+	ptMin          :   20
+	tauID          :   byLooseCombinedIsolationDeltaBetaCorr3Hits
+	tauLooseID     :   decayModeFinding
+	verbose        :   False
+	vetoLeptons    :   False
+	vetoLeptonsPOG :   True
+Counter events :
+	 all events                                     431 	 1.00 	 1.0000
+	 has >=1 tau at preselection                    386 	 0.90 	 0.8956
+	 has >=1 selected taus                           52 	 0.13 	 0.1206
+	 has >=1 loose taus                             375 	 7.21 	 0.8701
+	 has >=1 inclusive taus                         386 	 1.03 	 0.8956
+
+
+
+
+Analyzer: ttHTauMCMatchAnalyzer
+	verbose        :   False
+
+
+
+
+Analyzer: ttHJetAnalyzer
+	cleanJetsFromTaus:   False
+	doPuId         :   False
+	jetCol         :   slimmedJets
+	jetCol4MVA     :   slimmedJets
+	jetEta         :   5.0
+	jetEtaCentral  :   3.0
+	jetLepDR       :   0.4
+	jetPt          :   50.0
+	minLepPt       :   10
+	recalibrateJets:   False
+	relaxJetId     :   False
+	shiftJEC       :   0
+	verbose        :   False
+
+
+
+
+Analyzer: ttHJetMCMatchAnalyzer
+	shiftJER       :   0
+	smearJets      :   False
+	verbose        :   False
+
+
+
+
+Analyzer: ttHCoreEventAnalyzer
+	maxLeps        :   4
+	verbose        :   False
+Counter events :
+	 all events                                     431 	 1.00 	 1.0000
+
+
+
+
+Analyzer: ttHJetMETSkimmer
+	htCut          :   ('htJet40j', 200)
+	jetPtCuts      :   [100, 100]
+	jetVetoPt      :   0
+	jets           :   cleanJets
+	metCut         :   0
+	mhtCut         :   ('mhtJet40j', 0)
+	nBJet          :   ('CSVM', 0, 'jet.pt() > 50')
+	verbose        :   False
+Counter events :
+	 all events                                     431 	 1.00 	 1.0000
+	 pass jetPtCuts                                 210 	 0.49 	 0.4872
+	 pass jetVeto                                   210 	 1.00 	 0.4872
+	 pass met                                       210 	 1.00 	 0.4872
+	 pass HT                                        210 	 1.00 	 0.4872
+	 pass MHT                                       210 	 1.00 	 0.4872
+	 pass nBJet                                     210 	 1.00 	 0.4872
+	 accepted events                                210 	 1.00 	 0.4872
+
+
+
+
+Analyzer: ttHIsoTrackAnalyzer
+	MaxIsoSum      :   0.1
+	MaxIsoSumEMU   :   0.2
+	candidates     :   packedPFCandidates
+	candidatesTypes:   std::vector<pat::PackedCandidate>
+	doSecondVeto   :   False
+	dzMax          :   0.05
+	dzPartMax      :   0.1
+	isoDR          :   0.3
+	maxAbsIso      :   8
+	ptMin          :   10
+	ptMinEMU       :   10
+	ptPartMin      :   0
+	verbose        :   False
+Counter events :
+	 all events                                     210 	 1.00 	 1.0000
+	 has >=1 selected Track                         210 	 1.00 	 1.0000
+	 has >=1 selected Iso Track                     101 	 0.48 	 0.4810
+
+
+
+
+Analyzer: ttHAlphaTVarAnalyzer
+	verbose        :   False
+Counter pairs :
+	 all events                                       0 	 -1.00 	 -1.0000
+
+
+
+
+Analyzer: ttHAlphaTSkimmer
+	alphaTCuts     :   [(0.65, 200, 275), (0.6, 275, 325), (0.55, 325, 99999)]
+	forwardJetVeto :   True
+	verbose        :   False
+Counter events :
+	 all events                                     210 	 1.00 	 1.0000
+	 pass alphaTCuts                                  2 	 0.01 	 0.0095
+	 pass forwardJetVeto                            198 	 99.00 	 0.9429
+	 accepted events                                  2 	 0.01 	 0.0095
+
+
+
+
+Analyzer: treeProducerSusyAlphaT
+	PDFWeights     :   []
+	triggerBits    :   {'Muon': ['HLT_IsoMu24_eta2p1_v1', 'HLT_IsoMu24_eta2p1_v2', 'HLT_IsoMu24_eta2p1_v3', 'HLT_IsoMu24_eta2p1_v4', 'HLT_IsoMu24_eta2p1_v5', 'HLT_IsoMu24_eta2p1_v6', 'HLT_IsoMu24_eta2p1_v7', 'HLT_IsoMu24_eta2p1_v8', 'HLT_IsoMu24_eta2p1_v9', 'HLT_IsoMu24_eta2p1_v10', 'HLT_IsoMu24_eta2p1_v11', 'HLT_IsoMu24_eta2p1_v12', 'HLT_IsoMu24_eta2p1_v13', 'HLT_IsoMu24_eta2p1_v14', 'HLT_IsoMu24_eta2p1_v15', 'HLT_IsoMu24_eta2p1_v16', 'HLT_IsoMu24_eta2p1_v17', 'HLT_IsoMu24_eta2p1_v18', 'HLT_IsoMu24_eta2p1_v19'], 'Prompt': ['HLT_HT250_AlphaT0p55_v*', 'HLT_HT300_AlphaT0p53_v*', 'HLT_HT350_AlphaT0p52_v*', 'HLT_HT400_AlphaT0p51_v*', 'HLT_HT350_AlphaT0p52_v*'], 'Photon': ['HLT_Photon150_v1', 'HLT_Photon150_v2', 'HLT_Photon150_v3', 'HLT_Photon150_v4', 'HLT_Photon150_v5', 'HLT_Photon150_v6', 'HLT_Photon150_v7', 'HLT_Photon150_v8', 'HLT_Photon150_v9', 'HLT_Photon150_v10', 'HLT_Photon150_v11', 'HLT_Photon150_v12', 'HLT_Photon150_v13', 'HLT_Photon150_v14', 'HLT_Photon150_v15', 'HLT_Photon150_v16', 'HLT_Photon150_v17', 'HLT_Photon150_v18', 'HLT_Photon150_v19', 'HLT_Photon160_v1', 'HLT_Photon160_v2', 'HLT_Photon160_v3', 'HLT_Photon160_v4', 'HLT_Photon160_v5', 'HLT_Photon160_v6', 'HLT_Photon160_v7', 'HLT_Photon160_v8', 'HLT_Photon160_v9', 'HLT_Photon160_v10', 'HLT_Photon160_v11', 'HLT_Photon160_v12', 'HLT_Photon160_v13', 'HLT_Photon160_v14', 'HLT_Photon160_v15', 'HLT_Photon160_v16', 'HLT_Photon160_v17', 'HLT_Photon160_v18', 'HLT_Photon160_v19'], 'SingleMu': ['HLT_IsoMu24_eta2p1_v*'], 'Bulk': ['HLT_HT200_v*', 'HLT_HT250_v*', 'HLT_HT300_v*', 'HLT_HT350_v*', 'HLT_HT450_v*', 'HLT_HT550_v*', 'HLT_HT650_v*', 'HLT_HT750_v*'], 'Parked': ['HLT_HT200_AlphaT0p57_v*', 'HLT_HT300_AlphaT0p53_v*', 'HLT_HT350_AlphaT0p52_v*', 'HLT_HT400_AlphaT0p51_v*']}
+	vectorTree     :   True
+	verbose        :   False
+
+
+
+
+MCComponent: TTHToWW_PUS14
+	addWeight      :   1.0
+	dataset        :   /TTbarH_HToWWTo2LAndTauNu_M-125_13TeV_pythia6/Spring14dr-PU_S14_POSTLS170_V6-v1/AODSIM
+	dataset_entries:   0
+	effCorrFactor  :   1
+	efficiency     :   CFG: eff
+	eleFile        :   data/eff_ele12.root
+	eleHisto       :   h_electronScaleFactor_RecoIdIsoSip
+	muonFile       :   data/eff_mu12.root
+	muonHisto      :   TH2D_ALL_2012
+	files          :   ['root://eoscms.cern.ch//eos/cms/store/cmst3/user/gpetrucc/miniAOD/v1/TTbarH_HToWWTo2LAndTauNu_M-125_13TeV_pythia6_PU_S14_PAT.root']
+	intLumi        :   1.0
+	isData         :   False
+	isEmbed        :   False
+	isMC           :   True
+	nGenEvents     :   1
+	puFileData     :   /afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/data/puProfile_Data12.root
+	puFileMC       :   /afs/cern.ch/work/d/dosmith/CMGTools/CMSSW_7_0_6_patch1/src/CMGTools/TTHAnalysis/data/puProfile_Summer12_53X.root
+	splitFactor    :   1
+	triggers       :   []
+	xSection       :   1
+
+number of events processed: 1000

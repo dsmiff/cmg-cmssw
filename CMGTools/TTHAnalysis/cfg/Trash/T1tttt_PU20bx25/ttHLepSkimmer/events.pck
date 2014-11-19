@@ -1,0 +1,39 @@
+ccopy_reg
+_reconstructor
+p0
+(cCMGTools.RootTools.statistics.Counter
+Counter
+p1
+c__builtin__
+list
+p2
+(lp3
+(lp4
+S'all events'
+p5
+aI1000
+aa(lp6
+S'vetoed events'
+p7
+aI425
+aa(lp8
+S'accepted events'
+p9
+aI575
+aatp10
+Rp11
+(dp12
+S'name'
+p13
+S'events'
+p14
+sS'dico'
+p15
+(dp16
+g5
+I0
+sg7
+I1
+sg9
+I2
+ssb.

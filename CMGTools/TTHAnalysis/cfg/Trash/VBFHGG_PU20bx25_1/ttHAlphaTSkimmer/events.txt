@@ -1,0 +1,6 @@
+Counter events :
+	 all events                                     196 	 1.00 	 1.0000
+	 pass alphaTCuts                                  2 	 0.01 	 0.0102
+	 pass forwardJetVeto                            165 	 82.50 	 0.8418
+	 accepted events                                  2 	 0.01 	 0.0102
+

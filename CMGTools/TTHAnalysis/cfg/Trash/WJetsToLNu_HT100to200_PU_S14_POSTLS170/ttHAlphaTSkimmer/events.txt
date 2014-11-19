@@ -1,0 +1,6 @@
+Counter events :
+	 all events                                       9 	 1.00 	 1.0000
+	 pass alphaTCuts                                  0 	 0.00 	 0.0000
+	 pass forwardJetVeto                              9 	 -1.00 	 1.0000
+	 accepted events                                  0 	 0.00 	 0.0000
+

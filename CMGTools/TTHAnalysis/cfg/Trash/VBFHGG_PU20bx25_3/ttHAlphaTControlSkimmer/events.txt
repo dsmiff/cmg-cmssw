@@ -1,0 +1,8 @@
+Counter events :
+	 all events                                       0 	 -1.00 	 -1.0000
+	 pass mtw cuts                                    0 	 -1.00 	 -1.0000
+	 pass mll cuts                                    0 	 -1.00 	 -1.0000
+	 pass lepton deltaR cuts                          0 	 -1.00 	 -1.0000
+	 pass photon deltaR cuts                          0 	 -1.00 	 -1.0000
+	 accepted events                                  0 	 -1.00 	 -1.0000
+
