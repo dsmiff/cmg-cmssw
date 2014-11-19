@@ -70,11 +70,11 @@ susyPythia6Gen  = cfg.Analyzer(
 ttHLepAna = cfg.Analyzer(
     'ttHLepAnalyzerSusy',
     # input collections
-    muons='cmgMuonSel',
-    electrons='cmgElectronSel',
-    rhoMuon= 'kt6PFJetsCentralNeutral',
-    rhoElectron = 'kt6PFJets',
-    photons='cmgPhotonSel',
+    muons='slimmedMuons',
+    electrons='slimmedElectrons',
+    rhoMuon= 'fixedGridRhoFastjetAll',
+    rhoElectron = 'fixedGridRhoFastjetAll',
+##    photons='slimmedPhotons',
     # energy scale corrections and ghost muon suppression (off by default)
     doMuScleFitCorrections=False, # "rereco"
     doRochesterCorrections=False,
@@ -93,7 +93,6 @@ ttHLepAna = cfg.Analyzer(
     loose_muon_dxy    = 0.05,
     loose_muon_dz     = 0.2,
     loose_muon_relIso = 0.4,
-    loose_muon_ptIsoThreshold = 0,
     # inclusive very loose electron selection
     inclusive_electron_id  = "",
     inclusive_electron_pt  = 5,
@@ -102,14 +101,16 @@ ttHLepAna = cfg.Analyzer(
     inclusive_electron_dz  = 1.0,
     inclusive_electron_lostHits = 1.0,
     # loose electron selection
-    loose_electron_id     = "POG_MVA_ID_NonTrig",
+    loose_electron_id     = "POG_MVA_ID_NonTrig_full5x5",
     loose_electron_pt     = 7,
     loose_electron_eta    = 2.4,
     loose_electron_dxy    = 0.05,
     loose_electron_dz     = 0.2,
     loose_electron_relIso = 0.4,
-    loose_electron_ptIsoThreshold = 0,
     loose_electron_lostHits = 1.0,
+    # electron isolation correction method (can be "rhoArea" or "deltaBeta")
+    ele_isoCorr = "rhoArea" ,
+    ele_tightId = "MVA" ,
     # minimum deltaR between a loose electron and a loose muon (on overlaps, discard the electron)
     min_dr_electron_muon = 0.02
     )
@@ -129,13 +130,26 @@ ttHLepMCAna = cfg.Analyzer(
     matchAllInclusiveLeptons = False,
     )
 
+# Photon Analyzer (generic)
+ttHPhoAna = cfg.Analyzer(
+    'ttHPhotonAnalyzerSusy',
+    photons='slimmedPhotons',
+    ptMin = 20,
+    etaMax = 2.5,
+    gammaID = "PhotonCutBasedIDLoose",
+)
+
 # Tau Analyzer (generic)
 ttHTauAna = cfg.Analyzer(
     'ttHTauAnalyzer',
     ptMin = 20,
+    etaMax = 9999,
+    dxyMax = 0.5,
+    dzMax = 1.0,
     vetoLeptons = True,
     leptonVetoDR = 0.4,
-    tauID = "byMediumIsolationMVA2",
+    vetoLeptonsPOG = False,
+    tauID = "byLooseCombinedIsolationDeltaBetaCorr3Hits",
     tauLooseID = "decayModeFinding",
 )
 
@@ -148,18 +162,19 @@ ttHTauMCAna = cfg.Analyzer(
 # Jets Analyzer (generic)
 ttHJetAna = cfg.Analyzer(
     'ttHJetAnalyzer',
-    jetCol = 'cmgPFJetSelCHS',
-    jetCol4MVA = 'cmgPFJetSel',
+    jetCol = 'slimmedJets',
+    jetCol4MVA = 'slimmedJets',
     jetPt = 25.,
     jetEta = 4.7,
     jetEtaCentral = 2.4,
     jetLepDR = 0.4,
     minLepPt = 10,
     relaxJetId = False,  
-    doPuId = True,
+    doPuId = False, # Not commissioned in 7.0.X
     recalibrateJets = False,
     shiftJEC = 0, # set to +1 or -1 to get +/-1 sigma shifts
     cleanJetsFromTaus = False,
+    doQG = False,
     )
 
 # Jet MC Match Analyzer (generic)
@@ -167,6 +182,25 @@ ttHJetMCAna = cfg.Analyzer(
     'ttHJetMCMatchAnalyzer',
     smearJets = True,
     shiftJER = 0, # set to +1 or -1 to get +/-1 sigma shifts
+    )
+
+# Secondary vertex analyzer
+ttHSVAnalyzer = cfg.Analyzer(
+    'ttHSVAnalyzer'
+)
+
+# Secondary vertex analyzer
+ttHHeavyFlavourHadronAnalyzer = cfg.Analyzer(
+    'ttHHeavyFlavourHadronAnalyzer'
+)
+
+
+ttHMetAna = cfg.Analyzer(
+    'ttHMetEventAnalyzer',
+    doTkMet = False,
+    candidates='packedPFCandidates',
+    candidatesTypes='std::vector<pat::PackedCandidate>',
+    dzMax = 0.1,
     )
 
 # Core Event Analyzer (computes basic quantities like HT, dilepton masses)
@@ -203,10 +237,13 @@ susyCoreSequence = [
     ttHLepAna,
     ttHLepSkim,
     ttHLepMCAna,
+    ttHPhoAna,
     ttHTauAna,
     ttHTauMCAna,
     ttHJetAna,
     ttHJetMCAna,
+    #ttHSVAnalyzer, # out of core sequence for now
+    ttHMetAna,
     ttHCoreEventAna,
     ttHJetMETSkim
 ]

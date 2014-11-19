@@ -72,6 +72,46 @@ triggers_HT650 = ["HLT_PFHT650_v*","HLT_PFNoPUHT650_v*"]
 triggers_MET150 = ["HLT_PFMET150_v*"]
 triggers_HTMET = ["HLT_PFHT350_PFMET100_v*","HLT_PFNoPUHT350_PFMET100_v*"]
 
+triggers_MT2_mumu = ["HLT_Mu17_Mu8_v*","HLT_Mu17_TkMu8_v*"]
+triggers_MT2_ee   = ["HLT_Ele17_CaloIdT_TrkIdVL_CaloIsoVL_TrkIsoVL_Ele8_CaloIdT_TrkIdVL_CaloIsoVL_TrkIsoVL_v*",
+                     "HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"]
+
+triggers_MT2_mue = ["HLT_Mu8_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*",
+                    "HLT_Mu17_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"
+                    ]
+
+
+### ----> RA1 2012 triggers
+
+triggers_RA1_Bulk = [
+    "HLT_HT200_v*",
+    "HLT_HT250_v*",
+    "HLT_HT300_v*",
+    "HLT_HT350_v*",
+    "HLT_HT450_v*",
+    "HLT_HT550_v*",
+    "HLT_HT650_v*",
+    "HLT_HT750_v*",
+    ]
+triggers_RA1_Parked = [
+    "HLT_HT200_AlphaT0p57_v*",
+    "HLT_HT300_AlphaT0p53_v*",
+    "HLT_HT350_AlphaT0p52_v*",
+    "HLT_HT400_AlphaT0p51_v*",
+    ]
+triggers_RA1_Prompt = [
+    "HLT_HT250_AlphaT0p55_v*",
+    "HLT_HT300_AlphaT0p53_v*",
+    "HLT_HT350_AlphaT0p52_v*",
+    "HLT_HT400_AlphaT0p51_v*",
+    "HLT_HT350_AlphaT0p52_v*",
+    ]
+triggers_RA1_Single_Mu = ["HLT_IsoMu24_eta2p1_v*"]
+triggers_RA1_Photon    = ["HLT_Photon150_v%d"%i for i in range(1,20)] + ["HLT_Photon160_v%d"%i for i in range(1,20)]
+triggers_RA1_Muon      = ["HLT_IsoMu24_eta2p1_v%d"%i for i in range(1,20)]
+
+
+
 #####COMPONENT CREATOR
 
 from CMGTools.TTHAnalysis.samples.ComponentCreator import ComponentCreator
@@ -161,14 +201,11 @@ WJetsPtW50To70 =kreator.makeMCComponent('WJets_PtW-50To70','/WJetsToLNu_PtW-50To
 WJetsPtW70To100=kreator.makeMCComponent('WJets_PtW-70To100','/WJetsToLNu_PtW-70To100_TuneZ2star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5_B/'+pat,userName,filepattern)
 WJetsPtW100    =kreator.makeMCComponent('WJets_PtW-100','/WJetsToLNu_PtW-100_TuneZ2star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5_B/'+pat,userName,filepattern)
 
-# ---- Z inv + JETS
-ZNuNu50HT100=kreator.makeMCComponent('ZJetsToNuNu50HT100','/ZJetsToNuNu_50_HT_100_TuneZ2Star_8TeV_madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5/'+patNew,userName,filepattern)
-ZNuNu100HT200=kreator.makeMCComponent('ZJetsToNuNu100HT200','/ZJetsToNuNu_100_HT_200_TuneZ2Star_8TeV_madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5/'+patNew,userName,filepattern)
-ZNuNu200HT400=kreator.makeMCComponent('ZJetsToNuNu200HT400','/ZJetsToNuNu_200_HT_400_TuneZ2Star_8TeV_madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5/'+patNew,userName,filepattern)
-ZNuNu400=kreator.makeMCComponent('ZJetsToJetsToNuNu400','/ZJetsToNuNu_400_HT_inf_TuneZ2Star_8TeV_madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5/'+patNew,userName,filepattern)
+WJetsToLNu = [WJets, WJets_HT250To300, WJets_HT300To400, WJets_HT400ToInf]
+''' Need to include WJetsToLNu_HT-150to200 & WJetsToLNu_HT-200to250 '''
 
 # ---- QCD
-QCDMuPt15=kreator.makeMCComponent('QCDMuPt15','/QCD_Pt_20_MuEnrichedPt_15_TuneZ2star_8TeV_pythia6/Summer12_DR53X-PU_S10_START53_V7A-v3/AODSIM/V5/'+patNew,userName,filepattern)
+#QCDMuPt15=kreator.makeMCComponent('QCDMuPt15','/QCD_Pt_20_MuEnrichedPt_15_TuneZ2star_8TeV_pythia6/Summer12_DR53X-PU_S10_START53_V7A-v3/AODSIM/V5_B/'+pat,userName,filepattern)
 #QCDElPt30To80=kreator.makeMCComponent('QCDElPt30To80','//QCD_Pt_30_80_BCtoE_TuneZ2star_8TeV_pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5_B/'+pat,userName,filepattern)
 #QCDElPt80To170=kreator.makeMCComponent('QCDElPt80To170','//QCD_Pt_80_170_BCtoE_TuneZ2star_8TeV_pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5_B/'+pat,userName,filepattern)
 
@@ -187,6 +224,10 @@ WpWpqq  =kreator.makeMCComponent('WpWpqq',  '/WpWpqq_8TeV-madgraph/Summer12_DR53
 #/QCD_HT-250To500_TuneZ2star_8TeV-madgraph-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5_B/CMGPF_V5_16_0
 #/QCD_HT-500To1000_TuneZ2star_8TeV-madgraph-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5_B/CMGPF_V5_16_0
 #/QCD_HT-1000ToInf_TuneZ2star_8TeV-madgraph-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5_B/CMGPF_V5_16_0
+#/ZJetsToNuNu_50_HT_100_TuneZ2Star_8TeV_madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/CMGPF_V5_16_0
+#/ZJetsToNuNu_100_HT_200_TuneZ2Star_8TeV_madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/CMGPF_V5_16_0
+#/ZJetsToNuNu_200_HT_400_TuneZ2Star_8TeV_madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/CMGPF_V5_16_0
+#/ZJetsToNuNu_400_HT_inf_TuneZ2Star_8TeV_madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/CMGPF_V5_16_0
 # ----- MORE FRMO MARKUS -------------
 # /DYJetsToLL_PtZ-50To70_TuneZ2star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/V5_B/PAT_CMG_V5_17_0
 # /DYJetsToLL_PtZ-70To100_TuneZ2star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v2/AODSIM/V5_B/PAT_CMG_V5_17_0
@@ -200,14 +241,15 @@ WpWpqq  =kreator.makeMCComponent('WpWpqq',  '/WpWpqq_8TeV-madgraph/Summer12_DR53
 # ----- FINAL LISTS OF BACKGROUNDS ------
 #   ## Critical samples (major signals and backgrounds, and a few small samples)
 mcSamples_1 = [ TTH,TTWJets,TTZJets,TTWWJets,WWWJets,WWZJets,TTG,DYJetsM50,TTJetsLep,TTJetsSem,TTJets,TtW,TbartW,WZJets,ZZJets4L,WWJets,DYJetsM10, ZZ2e2mu,ZZ2e2tau,ZZ2mu2tau,ZZTo4mu,ZZTo4e,ZZTo4tau,
-                W1Jets,W2Jets,W3Jets,W4Jets,WJets_HT250To300,WJets_HT300To400,WJets_HT400ToInf,DY1JetsM50,DY2JetsM50,DY3JetsM50,DY4JetsM50,TTJetsSem,ZNuNu50HT100,ZNuNu100HT200,ZNuNu200HT400,ZNuNu400 ]
+                W1Jets,W2Jets,W3Jets,W4Jets,WJets_HT250To300,WJets_HT300To400,WJets_HT400ToInf,DY1JetsM50,DY2JetsM50,DY3JetsM50,DY4JetsM50,TTJetsSem ]
 #   ## Minor samples and backgrounds 
 mcSamples_2 = [ Tsch,Tbarsch,Ttch,Tbartch,WZZJets,ZZZJets,WWGJets,TTLep,TTJetsSem2,TTJetsHad, TBZToLL,WmWmqq,WpWpqq,TTH122,TTH127,WJetsPtW50To70,WJetsPtW70To100,WJetsPtW100]
 #   mcSamples_2 = [ TTH122,TTH127,DYJetsM10,TTLep,WWJets,TTJets,Tsch,Tbarsch,Ttch,Tbartch,W1Jets,W2Jets,W3Jets,W4Jets,TTJetsHad,DY1JetsM50, ]
 #   ## Cross-check samples, ... 
-mcSamples_3 = [ TTWnlo,TTZnlo,WJets,QCDMuPt15 ]
+mcSamples_3 = [ TTWnlo,TTZnlo,WJets ]
 #   ## Samples we don't use
 mcSamples_4 = [ WW,WZ,ZZ ]
+
 
 
 # ------- SUSY SIGNAL SAMPLES ------
@@ -232,33 +274,12 @@ T2DegenerateStop_2J_1 = kreator.makeMCComponent('T2DegenerateStop_2J_1', '/SMS-T
 T2DegenerateStop_2J_2 = kreator.makeMCComponent('T2DegenerateStop_2J_2', '/SMS-T2DegenerateStop_2J_mStop-175to225_mLSP-95to215_TuneZ2star_8TeV-madgraph-tauolapp/Summer12-START53_V19_FSIM_PU_S12-v1/AODSIM/V5/'+patNew,userName,filepattern)
 T2DegenerateStop_2J_3 = kreator.makeMCComponent('T2DegenerateStop_2J_3', '/SMS-T2DegenerateStop_2J_mStop-250to300_mLSP-170to290_TuneZ2star_8TeV-madgraph-tauolapp/Summer12-START53_V19_FSIM_PU_S12-v1/AODSIM/V5/'+patNew,userName,filepattern)
 T2DegenerateStop_2J_4 = kreator.makeMCComponent('T2DegenerateStop_2J_4', '/SMS-T2DegenerateStop_2J_mStop-325to375_mLSP-245to365_TuneZ2star_8TeV-madgraph-tauolapp/Summer12-START53_V19_FSIM_PU_S12-v1/AODSIM/V5/'+patNew,userName,filepattern)
-
-T2qq_2J_1 = kreator.makeMCComponent('T2qq_2J_1', '/SMS-T2qq_2J_mSquark-300to450_mLSP-1to400_TuneZ2star_8TeV-madgraph-tauola/Summer12-START53_V7C_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2qq_2J_2 = kreator.makeMCComponent('T2qq_2J_2', '/SMS-T2qq_2J_mSquark-500to750_mLSP-1to700_TuneZ2star_8TeV-madgraph-tauola/Summer12-START53_V7C_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2qq_2J_3 = kreator.makeMCComponent('T2qq_2J_3', '/SMS-T2qq_2J_mSquark-800to1000_mLSP-1to950_TuneZ2star_8TeV-madgraph-tauola/Summer12-START53_V7C_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2qq_2J_4 = kreator.makeMCComponent('T2qq_2J_4', '/SMS-T2qq_2J_mSquark-1050to1200_mLSP-1to1150_TuneZ2star_8TeV-madgraph-tauola/Summer12-START53_V7C_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-
-T2bb_2J_1 = kreator.makeMCComponent('T2bb_2J_1', '/SMS-T2bb_2J_mSbottom-100to475_mLSP-1to465_TuneZ2star_8TeV-madgraph-tauola/Summer12-START53_V7C_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2bb_2J_2 = kreator.makeMCComponent('T2bb_2J_2', '/SMS-T2bb_2J_mSbottom-500to800_mLSP-1to790_TuneZ2star_8TeV-madgraph-tauola/Summer12-START53_V7C_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-
-T2tt_2J_1 = kreator.makeMCComponent('T2tt_2J_1', '/SMS-T2tt_mStop-150to350_mLSP-0to250_8TeV-Pythia6Z/Summer12-START52_V9_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2tt_2J_2 = kreator.makeMCComponent('T2tt_2J_2', '/SMS-T2tt_mStop-375to475_mLSP-0to375_8TeV-Pythia6Z/Summer12-START52_V9_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2tt_2J_3 = kreator.makeMCComponent('T2tt_2J_3', '/SMS-T2tt_mStop-500to650_mLSP-0to225_8TeV-Pythia6Z/Summer12-START52_V9_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2tt_2J_4 = kreator.makeMCComponent('T2tt_2J_4', '/SMS-T2tt_mStop-500to650_mLSP-250to550_8TeV-Pythia6Z/Summer12-START52_V9_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2tt_2J_5 = kreator.makeMCComponent('T2tt_2J_5', '/SMS-T2tt_mStop-675to800_mLSP-300to700_8TeV-Pythia6Z/Summer12-START52_V9_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2tt_2J_6 = kreator.makeMCComponent('T2tt_2J_6', '/SMS-8TeV-Pythia6Z_T2tt_mStop-500to800_mLSP-1/Summer12-START52_V9_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-T2tt_2J_7 = kreator.makeMCComponent('T2tt_2J_7', '/SMS-8TeV-Pythia6Z_T2tt_mStop-150to475_mLSP-1/Summer12-START52_V9_FSIM-v1/AODSIM/V5/'+patNew,userName,filepattern)
-
-
+ 
 
 T1tttt_2J = [ T1tttt_2J_1,T1tttt_2J_2,T1tttt_2J_3,T1tttt_2J_4,T1tttt_2J_5,T1tttt_2J_6,T1tttt_2J_7,T1tttt_2J_8 ]
 T5VV_2J = [ T5VV_2J_1,T5VV_2J_2,T5VV_2J_3,T5VV_2J_4,T5VV_2J_5,T5VV_2J_6,T5VV_2J_7 ]
 T2DegenerateStop_2J = [ T2DegenerateStop_2J_1, T2DegenerateStop_2J_2, T2DegenerateStop_2J_3, T2DegenerateStop_2J_4 ]
-T2qq_2J = [ T2qq_2J_1, T2qq_2J_2, T2qq_2J_3, T2qq_2J_4 ]
-T2bb_2J = [ T2bb_2J_1, T2bb_2J_2 ]
-T2tt_2J = [ T2tt_2J_1, T2tt_2J_2, T2tt_2J_3, T2tt_2J_4, T2tt_2J_5, T2tt_2J_6, T2tt_2J_7 ]
-
-susySamples = T1tttt_2J + T5VV_2J + T2DegenerateStop_2J + T2qq_2J + T2bb_2J + T2tt_2J
+susySamples = T1tttt_2J + T5VV_2J + T2DegenerateStop_2J
 
 ####################################################################################################################
 #-----------PRIVATE FAST SIM---------------
@@ -269,71 +290,7 @@ FastSim_TTGStarMM = kreator.makePrivateMCComponent('FastSim_TTGStarMM',  '/store
 FastSim_TTGStarEE = kreator.makePrivateMCComponent('FastSim_TTGStarEE',  '/store/caf/user/gpetrucc/ttH/gen/2013-05-23/ttgstar_lowmll_ee_v2', _grep('ttgstar_lowmll_ee_v2', lowmllFiles) )
 FastSim_TTGStarTT = kreator.makePrivateMCComponent('FastSim_TTGStarTT',  '/store/caf/user/gpetrucc/ttH/gen/2013-05-23/ttgstar_lowmll_tautau', _grep('ttgstar_lowmll_tautau', lowmllFiles) )
 
-lmutauFiles = [ f.strip() for f in open("%s/src/CMGTools/TTHAnalysis/python/samples/fastSim-lmutau.txt" % os.environ['CMSSW_BASE'], "r") if "cmgTuple" in f ]
-S3m_m100_g050 = kreator.makePrivateMCComponent('S3m_m100_g050', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m100_g050', _grep('S3m_m100_g050', lmutauFiles))
-S3m_m105_g052 = kreator.makePrivateMCComponent('S3m_m105_g052', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m105_g052', _grep('S3m_m105_g052', lmutauFiles))
-S3m_m110_g055 = kreator.makePrivateMCComponent('S3m_m110_g055', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m110_g055', _grep('S3m_m110_g055', lmutauFiles))
-S3m_m115_g057 = kreator.makePrivateMCComponent('S3m_m115_g057', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m115_g057', _grep('S3m_m115_g057', lmutauFiles))
-S3m_m120_g060 = kreator.makePrivateMCComponent('S3m_m120_g060', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m120_g060', _grep('S3m_m120_g060', lmutauFiles))
-S3m_m125_g062 = kreator.makePrivateMCComponent('S3m_m125_g062', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m125_g062', _grep('S3m_m125_g062', lmutauFiles))
-S3m_m130_g065 = kreator.makePrivateMCComponent('S3m_m130_g065', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m130_g065', _grep('S3m_m130_g065', lmutauFiles))
-S3m_m140_g070 = kreator.makePrivateMCComponent('S3m_m140_g070', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m140_g070', _grep('S3m_m140_g070', lmutauFiles))
-S3m_m150_g075 = kreator.makePrivateMCComponent('S3m_m150_g075', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m150_g075', _grep('S3m_m150_g075', lmutauFiles))
-S3m_m160_g080 = kreator.makePrivateMCComponent('S3m_m160_g080', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m160_g080', _grep('S3m_m160_g080', lmutauFiles))
-S3m_m170_g085 = kreator.makePrivateMCComponent('S3m_m170_g085', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m170_g085', _grep('S3m_m170_g085', lmutauFiles))
-S3m_m180_g090 = kreator.makePrivateMCComponent('S3m_m180_g090', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m180_g090', _grep('S3m_m180_g090', lmutauFiles))
-S3m_m190_g095 = kreator.makePrivateMCComponent('S3m_m190_g095', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m190_g095', _grep('S3m_m190_g095', lmutauFiles))
-S3m_m200_g100 = kreator.makePrivateMCComponent('S3m_m200_g100', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m200_g100', _grep('S3m_m200_g100', lmutauFiles))
-S3m_m225_g112 = kreator.makePrivateMCComponent('S3m_m225_g112', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m225_g112', _grep('S3m_m225_g112', lmutauFiles))
-S3m_m250_g125 = kreator.makePrivateMCComponent('S3m_m250_g125', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m250_g125', _grep('S3m_m250_g125', lmutauFiles))
-S3m_m275_g137 = kreator.makePrivateMCComponent('S3m_m275_g137', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m275_g137', _grep('S3m_m275_g137', lmutauFiles))
-S3m_m300_g150 = kreator.makePrivateMCComponent('S3m_m300_g150', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m300_g150', _grep('S3m_m300_g150', lmutauFiles))
-S3m_m325_g162 = kreator.makePrivateMCComponent('S3m_m325_g162', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m325_g162', _grep('S3m_m325_g162', lmutauFiles))
-S3m_m350_g175 = kreator.makePrivateMCComponent('S3m_m350_g175', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m350_g175', _grep('S3m_m350_g175', lmutauFiles))
-S3m_m50_g025 = kreator.makePrivateMCComponent('S3m_m50_g025', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m50_g025', _grep('S3m_m50_g025', lmutauFiles))
-S3m_m55_g027 = kreator.makePrivateMCComponent('S3m_m55_g027', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m55_g027', _grep('S3m_m55_g027', lmutauFiles))
-S3m_m60_g030 = kreator.makePrivateMCComponent('S3m_m60_g030', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m60_g030', _grep('S3m_m60_g030', lmutauFiles))
-S3m_m65_g032 = kreator.makePrivateMCComponent('S3m_m65_g032', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m65_g032', _grep('S3m_m65_g032', lmutauFiles))
-S3m_m70_g035 = kreator.makePrivateMCComponent('S3m_m70_g035', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m70_g035', _grep('S3m_m70_g035', lmutauFiles))
-S3m_m75_g037 = kreator.makePrivateMCComponent('S3m_m75_g037', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m75_g037', _grep('S3m_m75_g037', lmutauFiles))
-S3m_m80_g040 = kreator.makePrivateMCComponent('S3m_m80_g040', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m80_g040', _grep('S3m_m80_g040', lmutauFiles))
-S3m_m85_g042 = kreator.makePrivateMCComponent('S3m_m85_g042', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m85_g042', _grep('S3m_m85_g042', lmutauFiles))
-S3m_m90_g045 = kreator.makePrivateMCComponent('S3m_m90_g045', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m90_g045', _grep('S3m_m90_g045', lmutauFiles))
-S3m_m95_g047 = kreator.makePrivateMCComponent('S3m_m95_g047', '/store/cmst3/user/gpetrucc/lmutau/v1/S3m_m95_g047', _grep('S3m_m95_g047', lmutauFiles))
-S4m_m100_g050 = kreator.makePrivateMCComponent('S4m_m100_g050', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m100_g050', _grep('S4m_m100_g050', lmutauFiles))
-S4m_m105_g052 = kreator.makePrivateMCComponent('S4m_m105_g052', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m105_g052', _grep('S4m_m105_g052', lmutauFiles))
-S4m_m110_g055 = kreator.makePrivateMCComponent('S4m_m110_g055', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m110_g055', _grep('S4m_m110_g055', lmutauFiles))
-S4m_m115_g057 = kreator.makePrivateMCComponent('S4m_m115_g057', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m115_g057', _grep('S4m_m115_g057', lmutauFiles))
-S4m_m120_g060 = kreator.makePrivateMCComponent('S4m_m120_g060', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m120_g060', _grep('S4m_m120_g060', lmutauFiles))
-S4m_m125_g062 = kreator.makePrivateMCComponent('S4m_m125_g062', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m125_g062', _grep('S4m_m125_g062', lmutauFiles))
-S4m_m130_g065 = kreator.makePrivateMCComponent('S4m_m130_g065', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m130_g065', _grep('S4m_m130_g065', lmutauFiles))
-S4m_m140_g070 = kreator.makePrivateMCComponent('S4m_m140_g070', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m140_g070', _grep('S4m_m140_g070', lmutauFiles))
-S4m_m150_g075 = kreator.makePrivateMCComponent('S4m_m150_g075', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m150_g075', _grep('S4m_m150_g075', lmutauFiles))
-S4m_m160_g080 = kreator.makePrivateMCComponent('S4m_m160_g080', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m160_g080', _grep('S4m_m160_g080', lmutauFiles))
-S4m_m170_g085 = kreator.makePrivateMCComponent('S4m_m170_g085', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m170_g085', _grep('S4m_m170_g085', lmutauFiles))
-S4m_m180_g090 = kreator.makePrivateMCComponent('S4m_m180_g090', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m180_g090', _grep('S4m_m180_g090', lmutauFiles))
-S4m_m190_g095 = kreator.makePrivateMCComponent('S4m_m190_g095', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m190_g095', _grep('S4m_m190_g095', lmutauFiles))
-S4m_m200_g100 = kreator.makePrivateMCComponent('S4m_m200_g100', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m200_g100', _grep('S4m_m200_g100', lmutauFiles))
-S4m_m225_g112 = kreator.makePrivateMCComponent('S4m_m225_g112', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m225_g112', _grep('S4m_m225_g112', lmutauFiles))
-S4m_m250_g125 = kreator.makePrivateMCComponent('S4m_m250_g125', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m250_g125', _grep('S4m_m250_g125', lmutauFiles))
-S4m_m275_g137 = kreator.makePrivateMCComponent('S4m_m275_g137', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m275_g137', _grep('S4m_m275_g137', lmutauFiles))
-S4m_m300_g150 = kreator.makePrivateMCComponent('S4m_m300_g150', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m300_g150', _grep('S4m_m300_g150', lmutauFiles))
-S4m_m325_g162 = kreator.makePrivateMCComponent('S4m_m325_g162', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m325_g162', _grep('S4m_m325_g162', lmutauFiles))
-S4m_m350_g175 = kreator.makePrivateMCComponent('S4m_m350_g175', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m350_g175', _grep('S4m_m350_g175', lmutauFiles))
-S4m_m50_g025 = kreator.makePrivateMCComponent('S4m_m50_g025', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m50_g025', _grep('S4m_m50_g025', lmutauFiles))
-S4m_m55_g027 = kreator.makePrivateMCComponent('S4m_m55_g027', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m55_g027', _grep('S4m_m55_g027', lmutauFiles))
-S4m_m60_g030 = kreator.makePrivateMCComponent('S4m_m60_g030', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m60_g030', _grep('S4m_m60_g030', lmutauFiles))
-S4m_m65_g032 = kreator.makePrivateMCComponent('S4m_m65_g032', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m65_g032', _grep('S4m_m65_g032', lmutauFiles))
-S4m_m70_g035 = kreator.makePrivateMCComponent('S4m_m70_g035', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m70_g035', _grep('S4m_m70_g035', lmutauFiles))
-S4m_m75_g037 = kreator.makePrivateMCComponent('S4m_m75_g037', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m75_g037', _grep('S4m_m75_g037', lmutauFiles))
-S4m_m80_g040 = kreator.makePrivateMCComponent('S4m_m80_g040', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m80_g040', _grep('S4m_m80_g040', lmutauFiles))
-S4m_m85_g042 = kreator.makePrivateMCComponent('S4m_m85_g042', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m85_g042', _grep('S4m_m85_g042', lmutauFiles))
-S4m_m90_g045 = kreator.makePrivateMCComponent('S4m_m90_g045', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m90_g045', _grep('S4m_m90_g045', lmutauFiles))
-S4m_m95_g047 = kreator.makePrivateMCComponent('S4m_m95_g047', '/store/cmst3/user/gpetrucc/lmutau/v1/S4m_m95_g047', _grep('S4m_m95_g047', lmutauFiles))
-LMuTau = [ S3m_m100_g050, S3m_m105_g052, S3m_m110_g055, S3m_m115_g057, S3m_m120_g060, S3m_m125_g062, S3m_m130_g065, S3m_m140_g070, S3m_m150_g075, S3m_m160_g080, S3m_m170_g085, S3m_m180_g090, S3m_m190_g095, S3m_m200_g100, S3m_m225_g112, S3m_m250_g125, S3m_m275_g137, S3m_m300_g150, S3m_m325_g162, S3m_m350_g175, S3m_m50_g025, S3m_m55_g027, S3m_m60_g030, S3m_m65_g032, S3m_m70_g035, S3m_m75_g037, S3m_m80_g040, S3m_m85_g042, S3m_m90_g045, S3m_m95_g047, S4m_m100_g050, S4m_m105_g052, S4m_m110_g055, S4m_m115_g057, S4m_m120_g060, S4m_m125_g062, S4m_m130_g065, S4m_m140_g070, S4m_m150_g075, S4m_m160_g080, S4m_m170_g085, S4m_m180_g090, S4m_m190_g095, S4m_m200_g100, S4m_m225_g112, S4m_m250_g125, S4m_m275_g137, S4m_m300_g150, S4m_m325_g162, S4m_m350_g175, S4m_m50_g025, S4m_m55_g027, S4m_m60_g030, S4m_m65_g032, S4m_m70_g035, S4m_m75_g037, S4m_m80_g040, S4m_m85_g042, S4m_m90_g045, S4m_m95_g047 ]
-
-
-fastSimSamples = [ FastSim_TTGStarMM, FastSim_TTGStarEE, FastSim_TTGStarTT ] + LMuTau
+fastSimSamples = [ FastSim_TTGStarMM, FastSim_TTGStarEE, FastSim_TTGStarTT ]
 
 
 mcSamples=mcSamples_1+mcSamples_2+mcSamples_3 
@@ -502,8 +459,6 @@ for C in [DYJetsM50,TTJetsLep,TTJetsSem,TTJetsSem2,TTLep,DY1JetsM50]:
     C.splitFactor = 500
 for comp in fastSimSamples:
     comp.splitFactor = 10
-for comp in LMuTau:
-    comp.splitFactor = 2
 
 for comp in dataSamplesMu:
     comp.splitFactor = 800
