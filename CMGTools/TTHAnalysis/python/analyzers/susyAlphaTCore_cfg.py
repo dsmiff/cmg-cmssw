@@ -176,11 +176,6 @@ ttHAlphaTControlSkim = cfg.Analyzer(
 
 ttHAlphaTMetNoMu = cfg.Analyzer(
             'ttHAlphaTMetAnalyzer',
-            muons = 'slimmedMuons',
-            doTkMet = True,
-            candidates='packedPFCandidates',
-            candidatesTypes='std::vector<pat::PackedCandidate>',
-            dzMax = 0.1,
             )
 
 

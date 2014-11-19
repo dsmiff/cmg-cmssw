@@ -10,9 +10,24 @@ from CMGTools.TTHAnalysis.analyzers.susyAlphaTCore_cfg import *
 ## Signal or control sample
 ##------------------------------------------
 
+<<<<<<< HEAD
 
 
 cutFlow = ['Signal', 'SingleMu', 'DoubleMu', 'SinglePhoton', 'SingleEle', 'DoubleEle', 'MultiJetEnriched', 'Test'][3]
+=======
+#PU regime
+puRegime = 'PU40bx50'
+#puRegime = 'PU20bx25'
+
+#cutFlow = 'Signal'
+#cutFlow = 'SingleMu'
+#cutFlow = 'DoubleMu'
+#cutFlow = 'SinglePhoton'
+#cutFlow = 'SingleEle'
+#cutFlow = 'DoubleEle'
+cutFlow = 'MultiJetEnriched'
+# cutFlow = 'Test'
+>>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
 
 if cutFlow=='SingleMu':
     ttHLepAna.loose_muon_pt   = 30.
@@ -21,6 +36,7 @@ if cutFlow=='SingleMu':
     ttHMuonSkim.maxObjects  = 1
     ttHIsoTrackSkim.allowedMuon  = 1 #
     ttHAlphaTSkim.alphaTCuts = [(0.0, 200,99999 )]   #Turn off AlphaT cut 
+    ttHAlphaTSkim.mhtDivMetCut = ('mhtJet50j','metNoMu',1.25)
     ttHAlphaTControlSkim.mtwCut = (30,125)
     ttHAlphaTControlSkim.lepDeltaRCut = 0.5
 
@@ -31,15 +47,18 @@ elif cutFlow=='DoubleMu':
     ttHMuonSkim.maxObjects  = 2
     ttHIsoTrackSkim.allowedMuon  = 2 #
     ttHAlphaTSkim.alphaTCuts = [(0.0, 200,99999 )]   #Turn off AlphaT cut
+    ttHAlphaTSkim.mhtDivMetCut = ('mhtJet50j','metNoMu',1.25)
     ttHAlphaTControlSkim.mllCut = (66.2,116.2)
     ttHAlphaTControlSkim.lepDeltaRCut = 0.5
 
 elif cutFlow=='SinglePhoton':
+    ttHPhoAna.ptMin = 165
+    ttHPhoAna.etaMax = 1.45
     ttHPhotonSkim.minObjects  = 1
-    ttHPhotonSkim.maxObjects  = 9999
-    ttHPhotonSkim.idCut = "abs(object.eta()) < 1.45" #uses the object skimmer
-    ttHPhotonSkim.ptCuts = [165]
-    ttHAlphaTControlSkim.photonDeltaRCut = 0.5
+    ttHPhotonSkim.maxObjects  = 1 
+    ttHAlphaTSkim.alphaTCuts = [(0.55, 375,99999 )]   
+    ttHAlphaTControlSkim.photonDeltaRCut = 1.0
+    ttHAlphaTSkim.mhtDivMetCut = ('mhtJet50j','met',9999) #MHT/MET cut
 
 elif cutFlow=='SingleEle':
     ttHElectronSkim.minObjects  = 1
@@ -88,6 +107,7 @@ treeProducer = cfg.Analyzer(
         )
 
 #-------- SAMPLES AND TRIGGERS -----------
+<<<<<<< HEAD
 from CMGTools.TTHAnalysis.samples.samples_13TeV_CSA14 import *
 
 
@@ -110,12 +130,46 @@ T1tttt       = [ T1tttt_PU20bx25 ]
 
 # SingleMu, DoubleElectron are Data
 selectedComponents = [ SingleMu, DoubleElectron, GluGluToHToGG_Flat20to50, TTHToWW_PUS14, DYJetsM50_PU20bx25, TTJets_PUS14 ]
+=======
+# from CMGTools.TTHAnalysis.samples.samples_13TeV_CSA14 import *
+from CMGTools.TTHAnalysis.samples.samples_13TeV_AlphaT import *
+
+>>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
 selectedComponents = []
-selectedComponents.extend( WJetsToLNu )
-selectedComponents.extend( TTbar )
 
+if cutFlow == 'Signal':
+    if puRegime == 'PU40bx50':
+        selectedComponents = WJetsToLNu + ZJetsToNuNu + TTbar + SusySignalSamples + QCD
+    elif puRegime == 'PU20bx25':
+        selectedComponents = WJetsToLNu_PU20bx25 + TTbar_PU20bx25 + SusySignalSamples_PU20bx25
 
+elif cutFlow == 'SingleMu':
+    if puRegime == 'PU40bx50':
+        selectedComponents = WJetsToLNu + TTbar + QCD
+    elif puRegime == 'PU20bx25':
+        selectedComponents = WJetsToLNu_PU20bx25 + TTbar_PU20bx25
 
+elif cutFlow == 'DoubleMu':
+    if puRegime == 'PU40bx50':
+        selectedComponents = DYJetsToLL + QCD
+    elif puRegime == 'PU20bx25':
+        selectedComponents = DYJetsToLL_PU20bx25
+
+elif cutFlow == 'SinglePhoton':
+    if puRegime == 'PU40bx50':
+        selectedComponents = GJets + QCD
+    elif puRegime == 'PU20bx25':
+        selectedComponents = GJets_PU20bx25 
+
+elif cutFlow == 'MultiJetEnriched':
+    if puRegime == 'PU40bx50':
+        selectedComponents = QCD
+    elif puRegime == 'PU20bx25':
+        selectedComponents = 'None' 
+
+else:
+    print 'Please choose correct cutFlow and PU regime'
+    #selectedComponents.extend( mcSamples )
 
 #-------- SEQUENCE
 
@@ -135,11 +189,12 @@ sequence = cfg.Sequence(susyCoreSequence + [
 
 
 #-------- HOW TO RUN
-test = 4
+test = 0
 
 # Test a single component, using a single thread.
 #--------------------------------------------------
 if test==1:
+<<<<<<< HEAD
 
     #comp               = TTHToWW_PUS14
     comp 	        = T1tttt_PU20bx25
@@ -149,8 +204,12 @@ if test==1:
 
     if cutFlow == 'Test':
         comp = VBFHGG_PU20bx25 
+=======
+    #comp               = SMS_T1tttt_2J_mGl1200_mLSP800_PU_S14_POSTLS170
+    comp = QCD_Pt1000to1400_PU_S14_POSTLS170
+>>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
     if cutFlow == 'SinglePhoton':
-        comp = VBFHGG_PU20bx25 
+        comp = GJets_HT600toInf_PU_S14_POSTLS170  
     #comp.files = ['/afs/cern.ch/work/p/pandolf/CMSSW_7_0_6_patch1_2/src/CMGTools/TTHAnalysis/cfg/pickevents.root']
     comp.files         = comp.files[:2]
 
@@ -167,11 +226,13 @@ if test==1:
 # Test all components (1 thread per component).
 #--------------------------------------------------
 elif test==2:
+    selectedComponents=QCD
     for comp in selectedComponents:
-        comp.splitFactor = 1
+        comp.splitFactor = 4
         comp.files       = comp.files[:1]
 #--------------------------------------------------
 
+<<<<<<< HEAD
 #--------------------------------------------------
 
 # Test on all GJets (Photon + Jets) samples
@@ -183,11 +244,13 @@ elif test==3:
 #--------------------------------------------------
 
 
+=======
+>>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
 
 # Run on local files
 #--------------------------------------------------
 elif test==4:
-    comp = TTJets_PU20bx25
+    comp = TTbar_PU20bx25 
 
 #    comp.name = 'TTJets'
     #    comp.files = [ '/store/mc/Spring14miniaod/TT_Tune4C_13TeV-pythia8-tauola/MINIAODSIM/PU20bx25_POSTLS170_V5-v1/00000/063013AD-9907-E411-8135-0026189438BD.root' ]
@@ -197,7 +260,7 @@ elif test==4:
     selectedComponents = [comp]
     comp.splitFactor = 1
 #--------------------------------------------------
-
+    
 
 config = cfg.Config( components = selectedComponents,
                      sequence = sequence )

@@ -28,7 +28,8 @@ class ttHIsoTrackSkimmer( Analyzer ):
         self.counters.addCounter('events')
         count = self.counters.counter('events')
         count.register('all events')
-        count.register('vetoed events')
+        count.register('too many objects')
+        count.register('too few objects')
         count.register('accepted events')
 
 
@@ -59,8 +60,11 @@ class ttHIsoTrackSkimmer( Analyzer ):
         ret = False 
         if len(objects) >= self.cfg_ana.minObjects:
             ret = True
+        else:
+            self.counters.counter('events').inc('too few objects')
+
         if len(objects) > self.cfg_ana.maxObjects:
-            if ret: self.counters.counter('events').inc('vetoed events')
+            self.counters.counter('events').inc('too many objects')
             ret = False
 
         if ret: self.counters.counter('events').inc('accepted events')

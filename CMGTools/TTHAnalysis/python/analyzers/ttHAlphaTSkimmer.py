@@ -16,9 +16,9 @@ class ttHAlphaTSkimmer( Analyzer ):
         self.counters.addCounter('events')
         count = self.counters.counter('events')
         count.register('all events')
-        count.register('pass alphaTCuts')
         count.register('pass forwardJetVeto')
         count.register('pass MHT/MET cut')
+        count.register('pass alphaTCuts')
         count.register('accepted events')
 
 
