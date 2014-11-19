@@ -31,9 +31,6 @@ process.out = cms.OutputModule(
     fileName = cms.untracked.string( 'PFAOD.root' ),
     )
 
-from CMGTools.Production.PFAOD.PFAOD_EventContent_cff import V5
-process.out.outputCommands.extend( V5 )
-
 from CMGTools.Production.PFAOD.PFAOD_EventContent_RA1_cff import V5_RA1
 process.out.outputCommands.extend( V5_RA1 )
 
