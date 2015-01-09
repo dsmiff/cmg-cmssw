@@ -8,7 +8,7 @@ kreator = ComponentCreator()
 
 #AlphaT sample (see https://twiki.cern.ch/twiki/bin/viewauth/CMS/AlphaT#MC_samples_for_CSA14_exercise)
 
-<<<<<<< HEAD
+
 #PU20bx25
 WJetsToLNu_PU20bx25 = kreator.makeMCComponent("WJetsToLNu_PU20bx25","/WJetsToLNu_13TeV-madgraph-pythia8-tauola/Spring14miniaod-PU20bx25_POSTLS170_V5-v1/MINIAODSIM", "CMS" , "*.root")
 
@@ -47,7 +47,7 @@ T1tttt_mGl1200mLSP800_PU20bx25 = kreator.makeMCComponent("T1tttt_mGl1200mLSP800_
 # "/SMS-T1tttt_2J_mGl-1200_mLSP-800_Tune4C_13TeV-madgraph-tauola/Spring14miniaod-PU20bx25_POSTLS170_V5-v1/MINIAODSIM"
 # "/SMS-T1tttt_2J_mGl-1500_mLSP-100_Tune4C_13TeV-madgraph-tauola/Spring14miniaod-PU20bx25_POSTLS170_V5-v1/MINIAODSIM"
 # "/SMS-T1tttt_2J_mGl-1500_mLSP-100_Tune4C_13TeV-madgraph-tauola/Spring14miniaod-PU20bx25_POSTLS170_V5-v2/MINIAODSIM"
-=======
+
 #========================================================PU20bx25 ===================================================
 
 
@@ -284,4 +284,4 @@ for comp in mcSamples:
 # T1qqqq_mGl1000mLSP800_PU20bx25,
 # T1bbbb_mGl1000mLSP900_PU20bx25,
 # T1tttt_mGl1200mLSP800_PU20bx25,
->>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
+

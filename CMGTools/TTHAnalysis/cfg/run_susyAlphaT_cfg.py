@@ -10,11 +10,9 @@ from CMGTools.TTHAnalysis.analyzers.susyAlphaTCore_cfg import *
 ## Signal or control sample
 ##------------------------------------------
 
-<<<<<<< HEAD
-
 
 cutFlow = ['Signal', 'SingleMu', 'DoubleMu', 'SinglePhoton', 'SingleEle', 'DoubleEle', 'MultiJetEnriched', 'Test'][3]
-=======
+
 #PU regime
 puRegime = 'PU40bx50'
 #puRegime = 'PU20bx25'
@@ -27,7 +25,7 @@ puRegime = 'PU40bx50'
 #cutFlow = 'DoubleEle'
 cutFlow = 'MultiJetEnriched'
 # cutFlow = 'Test'
->>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
+
 
 if cutFlow=='SingleMu':
     ttHLepAna.loose_muon_pt   = 30.
@@ -107,7 +105,7 @@ treeProducer = cfg.Analyzer(
         )
 
 #-------- SAMPLES AND TRIGGERS -----------
-<<<<<<< HEAD
+
 from CMGTools.TTHAnalysis.samples.samples_13TeV_CSA14 import *
 
 
@@ -130,11 +128,11 @@ T1tttt       = [ T1tttt_PU20bx25 ]
 
 # SingleMu, DoubleElectron are Data
 selectedComponents = [ SingleMu, DoubleElectron, GluGluToHToGG_Flat20to50, TTHToWW_PUS14, DYJetsM50_PU20bx25, TTJets_PUS14 ]
-=======
+
 # from CMGTools.TTHAnalysis.samples.samples_13TeV_CSA14 import *
 from CMGTools.TTHAnalysis.samples.samples_13TeV_AlphaT import *
 
->>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
+
 selectedComponents = []
 
 if cutFlow == 'Signal':
@@ -194,7 +192,7 @@ test = 0
 # Test a single component, using a single thread.
 #--------------------------------------------------
 if test==1:
-<<<<<<< HEAD
+
 
     #comp               = TTHToWW_PUS14
     comp 	        = T1tttt_PU20bx25
@@ -204,10 +202,10 @@ if test==1:
 
     if cutFlow == 'Test':
         comp = VBFHGG_PU20bx25 
-=======
+
     #comp               = SMS_T1tttt_2J_mGl1200_mLSP800_PU_S14_POSTLS170
     comp = QCD_Pt1000to1400_PU_S14_POSTLS170
->>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
+
     if cutFlow == 'SinglePhoton':
         comp = GJets_HT600toInf_PU_S14_POSTLS170  
     #comp.files = ['/afs/cern.ch/work/p/pandolf/CMSSW_7_0_6_patch1_2/src/CMGTools/TTHAnalysis/cfg/pickevents.root']
@@ -232,7 +230,7 @@ elif test==2:
         comp.files       = comp.files[:1]
 #--------------------------------------------------
 
-<<<<<<< HEAD
+
 #--------------------------------------------------
 
 # Test on all GJets (Photon + Jets) samples
@@ -243,9 +241,6 @@ elif test==3:
         comp.files       = comp.files[:1]
 #--------------------------------------------------
 
-
-=======
->>>>>>> 2bbf8bf94d12325188e3594b16af38583e276d9a
 
 # Run on local files
 #--------------------------------------------------
