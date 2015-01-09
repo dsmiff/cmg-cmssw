@@ -1,4 +1,3 @@
-
 import FWCore.ParameterSet.Config as cms
 from CMGTools.Production.PFAOD.PFAOD_EventContent_cff import V5
 
